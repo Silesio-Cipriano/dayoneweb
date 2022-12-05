@@ -1,7 +1,7 @@
 import { Center, Flex, Text } from '@chakra-ui/react';
-import { DayCardFeed } from '../components/DayCards/Feed';
-import { Header } from '../components/Header';
-import { TitleArea } from '../components/TitleArea';
+import { DayCardFeed } from '../../components/DayCards/Feed';
+import { Header } from '../../components/Header';
+import { TitleArea } from '../../components/TitleArea';
 
 interface DayCardProps {
   author: string;
@@ -14,17 +14,17 @@ interface DayCardProps {
 }
 
 export default function Home() {
-  // const data: DayCardProps = {
-  //   author: 'Silesio Cipriano',
-  //   createdAt: '23 _ 2022-11-30',
-  //   title:
-  //     'Podemos facilmente perdoar uma criança que tem medo do escuro; a real tragédia da vida é quando os homens têm medo da luz.',
-  //   description:
-  //     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam felis augue, cursus sit amet nisl eu, suscipit efficitur est. Fusce posuere purus quis scelerisque interdum. Nam lobortis, sapien quis convallis congue, ante lorem imperdiet ligula, at semper turpis nibh vitae turpis.',
-  //   likes: 20,
-  //   numberOfComments: 10,
-  //   authorTitle: 'Platão',
-  // };
+  const data: DayCardProps = {
+    author: 'Silesio Cipriano',
+    createdAt: '23 _ 2022-11-30',
+    title:
+      'Podemos facilmente perdoar uma criança que tem medo do escuro; a real tragédia da vida é quando os homens têm medo da luz.',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam felis augue, cursus sit amet nisl eu, suscipit efficitur est. Fusce posuere purus quis scelerisque interdum. Nam lobortis, sapien quis convallis congue, ante lorem imperdiet ligula, at semper turpis nibh vitae turpis.',
+    likes: 20,
+    numberOfComments: 10,
+    authorTitle: 'Platão',
+  };
 
   const dataArray = [
     {
@@ -197,7 +197,7 @@ export default function Home() {
     <>
       <Header />
       <Flex w="100%" mt="20" maxWidth={1480} mx="auto" flexDir="column" px="4">
-        <TitleArea />
+        <TitleArea variantComponent="other" />
         <Flex
           w="100%"
           mt="20"
@@ -206,9 +206,11 @@ export default function Home() {
           flexDir="column"
           gap="20"
         >
-          {dataArray.map((data, key) => {
+          {/* {dataArray.map((data, key) => {
             return <DayCardFeed data={data} />;
-          })}
+          })} */}
+
+          <DayCardFeed data={data} />
         </Flex>
         <Center my="20">
           <Text fontSize={[16, 24]} fontFamily="Lato" fontWeight="medium">

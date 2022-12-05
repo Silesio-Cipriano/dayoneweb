@@ -1,10 +1,10 @@
-import { Divider, Flex, Text, Input, Button } from '@chakra-ui/react';
+import { Divider, Flex, Text, Input, Button, Image } from '@chakra-ui/react';
 
 interface TitleAreaProps {
-  type?: number;
+  variantComponent?: 'normal' | 'user' | 'other';
 }
-export function TitleArea({ type }: TitleAreaProps) {
-  if (type === 1) {
+export function TitleArea({ variantComponent }: TitleAreaProps) {
+  if (variantComponent === 'user') {
     return (
       <Flex flexDir="column" w="100%">
         <Flex w="100%" mx="auto" align="center" justifyContent="space-between">
@@ -24,6 +24,35 @@ export function TitleArea({ type }: TitleAreaProps) {
           >
             Criar
           </Button>
+        </Flex>
+        <Divider borderWidth={1.2} mt={['2', '5']} />
+      </Flex>
+    );
+  }
+  if (variantComponent === 'other') {
+    return (
+      <Flex flexDir="column" w="100%">
+        <Flex w="100%" mx="auto" align="center" justifyContent="space-between">
+          <Flex align="center" gap={['2', '10']}>
+            <Image
+              w={[14, 20]}
+              h={[14, 20]}
+              objectFit="cover"
+              borderRadius="full"
+              src="https://images.pexels.com/photos/14156051/pexels-photo-14156051.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
+            />
+            <Text fontFamily="Lato" fontSize={[16, 36]} fontWeight="bold">
+              Courtney Henry
+            </Text>
+          </Flex>
+          <Input
+            placeholder="Pesquisar por nome"
+            variant="flushed"
+            w={[190, 300]}
+            fontSize={[16, 24]}
+            pl="2"
+            _placeholder={{ fontSize: 14 }}
+          />
         </Flex>
         <Divider borderWidth={1.2} mt={['2', '5']} />
       </Flex>

@@ -9,6 +9,10 @@ export const theme = extendTheme({
       '900': '#292934',
       '100': '#CCCCCC',
     },
+    blue: {
+      '400': '#D0ECF4',
+      '100': '#56707E',
+    },
   },
   fonts: {
     heading: 'Lato',

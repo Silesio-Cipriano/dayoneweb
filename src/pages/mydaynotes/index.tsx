@@ -17,7 +17,7 @@ export default function MyNotes() {
         flexDir="column"
         px="4"
       >
-        <TitleArea type={1} />
+        <TitleArea variantComponent="normal" />
         <Flex
           w="100%"
           mt={['10', '20']}

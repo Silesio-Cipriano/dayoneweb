@@ -106,7 +106,7 @@ export function Actions({
               </Flex>
             </Flex>
             <Text fontSize={20} fontWeight="bold" textAlign="center">
-              {numberOfComments}
+              {/* {numberOfComments} */}
             </Text>
           </Flex>
         </Link>
@@ -133,7 +133,7 @@ export function Actions({
           />
         </Button>
         <Text fontSize={20} fontWeight="bold">
-          {likes}
+          {'' + likes + ''}
         </Text>
       </Flex>
 
@@ -154,7 +154,7 @@ export function Actions({
             />
           </Button>
           <Text fontSize={20} fontWeight="bold">
-            {likes}
+            {numberOfComments + ''}
           </Text>
         </Flex>
       </Link>

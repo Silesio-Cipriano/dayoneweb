@@ -1,8 +1,12 @@
 import { Flex, Divider } from '@chakra-ui/react';
-import { Actions } from './Actions';
+import dynamic from 'next/dynamic';
+import { useState } from 'react';
 import { Content } from './Content';
+import { Actions } from './Actions';
 import { Title } from './Title';
+import type { NextPage } from 'next';
 import { Top } from './Top';
+
 interface CardProps {
   author: string;
   createdAt: string;

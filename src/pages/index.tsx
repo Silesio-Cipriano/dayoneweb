@@ -206,8 +206,8 @@ export default function Home() {
           flexDir="column"
           gap="20"
         >
-          {dataArray.map((data, key) => {
-            return <DayCardFeed data={data} />;
+          {dataArray.map((data, index) => {
+            return <DayCardFeed key={index} data={data} />;
           })}
         </Flex>
         <Center my="20">

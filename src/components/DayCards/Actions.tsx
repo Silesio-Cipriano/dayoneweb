@@ -20,6 +20,19 @@ export function Actions({
   likes,
   numberOfComments,
 }: ActionsProps) {
+  const [likeUpdate, setLikeUpdate] = useState(likes);
+  const [liked, setLiked] = useState(false);
+
+  function changeLike() {
+    if (likes === likeUpdate) {
+      setLikeUpdate(likes + 1);
+      setLiked(true);
+    } else {
+      setLikeUpdate(likeUpdate - 1);
+      setLiked(false);
+    }
+  }
+
   if (variantComponent === 'your') {
     return (
       <>
@@ -122,18 +135,19 @@ export function Actions({
           h={[12, 20]}
           borderRadius="full"
           width="20"
+          onClick={changeLike}
         >
           <Icon
             as={Heart}
             border={1}
             boxSize={[6, 12]}
             strokeWidth="1"
-            fill="red"
-            stroke="none"
+            fill={liked ? 'red' : 'white'}
+            stroke={liked ? 'none' : 'black.900'}
           />
         </Button>
         <Text fontSize={20} fontWeight="bold">
-          {'' + likes + ''}
+          {'' + likeUpdate + ''}
         </Text>
       </Flex>
 

@@ -24,7 +24,7 @@ interface DayCardProps {
 export function DayCardFeed({ data }: DayCardProps) {
   return (
     <>
-      <Flex flex={1} flexDir="column">
+      <Flex flex={1} flexDir="column">  
         <Top autor={data.author} createdAt={data.createdAt} />
         <Title title={data.title} authorTitle={data.authorTitle} />
         <Content description={data.description} />

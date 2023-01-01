@@ -134,6 +134,7 @@ export function Actions({
           w={[12, 20]}
           h={[12, 20]}
           borderRadius="full"
+          borderColor={liked ? 'red' : '#E3E3E3'}
           width="20"
           onClick={changeLike}
         >
@@ -146,7 +147,11 @@ export function Actions({
             stroke={liked ? 'none' : 'black.900'}
           />
         </Button>
-        <Text fontSize={20} fontWeight="bold">
+        <Text
+          fontSize={20}
+          fontWeight="bold"
+          color={liked ? 'red' : 'black.900'}
+        >
           {'' + likeUpdate + ''}
         </Text>
       </Flex>
@@ -159,6 +164,7 @@ export function Actions({
             h={[12, 20]}
             borderRadius="full"
             width="20"
+            borderColor={'#E3E3E3'}
           >
             <Icon
               as={MessageCircle}

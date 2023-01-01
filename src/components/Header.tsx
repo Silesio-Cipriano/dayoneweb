@@ -1,12 +1,28 @@
-import { Button, Flex, Icon, Image, Link } from '@chakra-ui/react';
+import {
+  Button,
+  Flex,
+  Icon,
+  Image,
+  Link as ChakraUILink,
+  Popover,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverTrigger,
+  Portal,
+  Text,
+} from '@chakra-ui/react';
+import Link from 'next/link';
 import { Bell } from 'react-feather';
 
 interface HeaderProps {
-  type?: number;
+  variant?: 'normal' | 'logged';
 }
 
-export function Header({ type }: HeaderProps) {
-  if (type === 1) {
+export function Header({ variant = 'normal' }: HeaderProps) {
+  if (variant === 'logged') {
     return (
       <Flex
         as="header"
@@ -19,11 +35,18 @@ export function Header({ type }: HeaderProps) {
         justify="space-between"
         align="center"
       >
-        <Link fontSize={['2xl', '3xl']} fontWeight="bold" fontFamily="Lato">
+        <ChakraUILink
+          as={Link}
+          href="/"
+          fontSize={['2xl', '3xl']}
+          fontWeight="bold"
+          fontFamily="Lato"
+          textDecoration="none"
+        >
           Day One
-        </Link>
+        </ChakraUILink>
 
-        <Flex justify="space-between" gap="2">
+        <Flex justify="space-between" gap="2" alignItems="center">
           <Button
             variant="solid"
             colorScheme="none"
@@ -36,15 +59,67 @@ export function Header({ type }: HeaderProps) {
               color="black.900"
             />
           </Button>
-          <Button variant="solid" colorScheme="none">
-            <Image
-              src="https://images.pexels.com/photos/6964748/pexels-photo-6964748.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
-              width={[14, 20]}
-              height={[14, 16]}
-              objectFit="cover"
-              borderRadius={10}
-            />
-          </Button>
+          <Popover placement="bottom-end">
+            <PopoverTrigger>
+              <Button padding="0" w="auto">
+                <Image
+                  src="https://images.pexels.com/photos/6964748/pexels-photo-6964748.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
+                  width={[14, 16]}
+                  height={[12, 14]}
+                  objectFit="cover"
+                  borderRadius={4}
+                />
+              </Button>
+            </PopoverTrigger>
+            <Portal>
+              <PopoverContent w={'44'} mt="2">
+                <PopoverHeader>
+                  <ChakraUILink
+                    as={Link}
+                    href="/mydaynotes"
+                    _hover={{ textDecoration: 'none' }}
+                  >
+                    <Text fontSize="20" fontFamily="Lato">
+                      Minhas notas
+                    </Text>
+                  </ChakraUILink>
+                </PopoverHeader>
+                <PopoverBody>
+                  <Flex direction="column" gap="2">
+                    <ChakraUILink
+                      as={Link}
+                      href="/createdaynote"
+                      _hover={{ textDecoration: 'none' }}
+                    >
+                      <Text fontSize="20" fontFamily="Lato">
+                        Criar nota diaria
+                      </Text>
+                    </ChakraUILink>
+                    <ChakraUILink
+                      as={Link}
+                      href="/myprofile"
+                      _hover={{ textDecoration: 'none' }}
+                    >
+                      <Text fontSize="20" fontFamily="Lato">
+                        Editar perfil
+                      </Text>
+                    </ChakraUILink>
+                  </Flex>
+                </PopoverBody>
+                <PopoverFooter>
+                  <ChakraUILink
+                    as={Link}
+                    href="/"
+                    _hover={{ textDecoration: 'none' }}
+                  >
+                    <Text fontSize="20" fontFamily="Lato" color="red.900">
+                      Sair
+                    </Text>
+                  </ChakraUILink>
+                </PopoverFooter>
+              </PopoverContent>
+            </Portal>
+          </Popover>
         </Flex>
       </Flex>
     );
@@ -62,18 +137,39 @@ export function Header({ type }: HeaderProps) {
       justify="space-between"
       align="center"
     >
-      <Link fontSize={['2xl', '3xl']} fontWeight="bold" fontFamily="Lato">
+      <ChakraUILink
+        as={Link}
+        href=""
+        fontSize={['2xl', '3xl']}
+        fontWeight="bold"
+        fontFamily="Lato"
+        _hover={{ textDecoration: 'none' }}
+      >
         Day One
-      </Link>
+      </ChakraUILink>
 
       <Flex justify="space-between" gap="10">
-        <Link fontSize={['xl', '2xl']} fontWeight="bold" fontFamily="Lato">
+        <ChakraUILink
+          as={Link}
+          href="/login"
+          fontSize={['xl', '2xl']}
+          fontWeight="bold"
+          fontFamily="Lato"
+          _hover={{ textDecoration: 'none' }}
+        >
           Entrar
-        </Link>
+        </ChakraUILink>
 
-        <Link fontSize={['xl', '2xl']} fontWeight="bold" fontFamily="Lato">
+        <ChakraUILink
+          as={Link}
+          href="/register"
+          fontSize={['xl', '2xl']}
+          fontWeight="bold"
+          fontFamily="Lato"
+          _hover={{ textDecoration: 'none', color: 'red.100' }}
+        >
           Cadastrar
-        </Link>
+        </ChakraUILink>
       </Flex>
     </Flex>
   );

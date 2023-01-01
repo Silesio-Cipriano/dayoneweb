@@ -19,7 +19,9 @@ export function Content({ description }: ContentProps) {
       >
         {description}
       </Flex>
-      <Image src="/images/EmojiVendeta.svg" w={[20, 32]} />
+      <Flex>
+        <Image src="/images/EmojiVendeta.svg" w={[20, 32]} />
+      </Flex>
     </Flex>
   );
 }

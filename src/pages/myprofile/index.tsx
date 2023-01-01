@@ -20,7 +20,7 @@ export default function MyProfile() {
   const data = dataArray;
   return (
     <>
-      <Header type={1} />
+      <Header variant="logged" />
       <Flex
         w="100%"
         mt={['6', '20']}

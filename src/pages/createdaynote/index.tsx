@@ -47,7 +47,7 @@ export default function CreateDayNote() {
 
   return (
     <>
-      <Header type={1} />
+      <Header variant="logged" />
       <Flex w="100%" maxWidth={1480} mx="auto" flexDir="column" px="4">
         <Flex
           w="100%"
@@ -100,11 +100,6 @@ export default function CreateDayNote() {
             bg="blue.400"
           />
         </Flex>
-        <Center my={['8', '20']}>
-          <Text fontSize={[16, 24]} fontFamily="Lato" fontWeight="medium">
-            Desenvolvido por Silésio L. Cipriano
-          </Text>
-        </Center>
       </Flex>
 
       <Modal

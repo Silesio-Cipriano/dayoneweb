@@ -195,7 +195,7 @@ export default function Home() {
 
   return (
     <>
-      <Header />
+      <Header variant="logged" />
       <Flex w="100%" mt="20" maxWidth={1480} mx="auto" flexDir="column" px="4">
         <TitleArea />
         <Flex

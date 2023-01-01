@@ -1,4 +1,13 @@
-import { Divider, Flex, Text, Input, Button, Image } from '@chakra-ui/react';
+import {
+  Divider,
+  Flex,
+  Text,
+  Input,
+  Button,
+  Link as ChakraUILink,
+  Image,
+} from '@chakra-ui/react';
+import Link from 'next/link';
 
 interface TitleAreaProps {
   variantComponent?: 'normal' | 'user' | 'other';
@@ -12,18 +21,26 @@ export function TitleArea({ variantComponent }: TitleAreaProps) {
             Day card
           </Text>
 
-          <Button
-            w={[124, 255]}
-            h={[10, 50]}
-            variant="outline"
-            borderRadius="full"
-            border="2px"
-            colorScheme="black.900"
-            _hover={{ bg: 'black.900', color: 'white', border: '2px' }}
-            fontSize={['xs', 'xl']}
+          <ChakraUILink
+            as={Link}
+            href="/createdaynote"
+            _hover={{ textDecoration: 'none' }}
           >
-            Criar
-          </Button>
+            <Button
+              textAlign="center"
+              justifyContent="center"
+              w={[124, 255]}
+              h={[10, 50]}
+              variant="outline"
+              borderRadius="full"
+              border="2px"
+              colorScheme="black.900"
+              _hover={{ bg: 'black.900', color: 'white', border: '2px' }}
+              fontSize={['xs', 'xl']}
+            >
+              Criar
+            </Button>
+          </ChakraUILink>
         </Flex>
         <Divider borderWidth={1.2} mt={['2', '5']} />
       </Flex>

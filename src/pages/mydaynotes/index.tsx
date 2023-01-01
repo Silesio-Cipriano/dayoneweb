@@ -8,7 +8,7 @@ export default function MyNotes() {
   const data = dataArray;
   return (
     <>
-      <Header type={1} />
+      <Header variant="logged" />
       <Flex
         w="100%"
         mt={['6', '20']}
@@ -17,7 +17,7 @@ export default function MyNotes() {
         flexDir="column"
         px="4"
       >
-        <TitleArea variantComponent="normal" />
+        <TitleArea variantComponent="user" />
         <Flex
           w="100%"
           mt={['10', '20']}

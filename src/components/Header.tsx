@@ -41,7 +41,7 @@ export function Header({ variant = 'normal' }: HeaderProps) {
           fontSize={['2xl', '3xl']}
           fontWeight="bold"
           fontFamily="Lato"
-          textDecoration="none"
+          _hover={{ textDecoration: 'none' }}
         >
           Day One
         </ChakraUILink>
@@ -72,7 +72,7 @@ export function Header({ variant = 'normal' }: HeaderProps) {
               </Button>
             </PopoverTrigger>
             <Portal>
-              <PopoverContent w={'44'} mt="2">
+              <PopoverContent w={'44'} mt="2" shadow={'md'}>
                 <PopoverHeader>
                   <ChakraUILink
                     as={Link}

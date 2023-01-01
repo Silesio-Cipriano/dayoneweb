@@ -16,12 +16,16 @@ import {
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import { Bell } from 'react-feather';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 
 interface HeaderProps {
   variant?: 'normal' | 'logged';
 }
 
 export function Header({ variant = 'normal' }: HeaderProps) {
+  const { user } = useContext(AuthContext);
+
   if (variant === 'logged') {
     return (
       <Flex
@@ -63,7 +67,7 @@ export function Header({ variant = 'normal' }: HeaderProps) {
             <PopoverTrigger>
               <Button padding="0" w="auto">
                 <Image
-                  src="https://images.pexels.com/photos/6964748/pexels-photo-6964748.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
+                  src={user?.avatar}
                   width={[14, 16]}
                   height={[12, 14]}
                   objectFit="cover"

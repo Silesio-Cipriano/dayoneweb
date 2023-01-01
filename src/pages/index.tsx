@@ -1,4 +1,5 @@
 import { Center, Flex, Text } from '@chakra-ui/react';
+import { useContext } from 'react';
 import { DayCardFeed } from '../components/DayCards/Feed';
 import { Header } from '../components/Header';
 import { TitleArea } from '../components/TitleArea';
@@ -14,18 +15,6 @@ interface DayCardProps {
 }
 
 export default function Home() {
-  // const data: DayCardProps = {
-  //   author: 'Silesio Cipriano',
-  //   createdAt: '23 _ 2022-11-30',
-  //   title:
-  //     'Podemos facilmente perdoar uma criança que tem medo do escuro; a real tragédia da vida é quando os homens têm medo da luz.',
-  //   description:
-  //     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam felis augue, cursus sit amet nisl eu, suscipit efficitur est. Fusce posuere purus quis scelerisque interdum. Nam lobortis, sapien quis convallis congue, ante lorem imperdiet ligula, at semper turpis nibh vitae turpis.',
-  //   likes: 20,
-  //   numberOfComments: 10,
-  //   authorTitle: 'Platão',
-  // };
-
   const dataArray = [
     {
       author: 'Lorenzina Pereira',

@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from 'react';
-import { signInRequest } from '../services/auth';
+import { recoveryUserInformation, signInRequest } from '../services/auth';
 import { parseCookies, setCookie } from 'nookies';
 import Router from 'next/router';
 
@@ -16,7 +16,8 @@ type User = {
   name: string;
   username: string;
   avatar: string;
-  createdAt: string;
+  email: string;
+  createdAt: Date;
 };
 
 type AuthContextType = {
@@ -34,10 +35,10 @@ export function AuthProvider({ children }: AuthProviderType) {
   useEffect(() => {
     const { 'dayone.token': token } = parseCookies();
 
-    if(token){
-      
+    if (token) {
+      recoveryUserInformation().then((response) => setUser(response.user));
     }
-  });
+  }, []);
 
   async function signIn({ email, password }: SignInData) {
     const { token, user } = await signInRequest({

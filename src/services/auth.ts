@@ -17,9 +17,21 @@ export async function signInRequest(data: SignInRequestData) {
       name: 'Silesio Cipriano',
       email: 'silesiocipriano',
       avatar: 'https://github.com/Silesio-Cipriano.png',
-      createdAt: '2023-01-01T16:22:33.691Z',
+      createdAt: new Date(),
     },
   };
 }
 
-export async function recoveryUserInformation() {}
+export async function recoveryUserInformation() {
+  await delay();
+
+  return {
+    user: {
+      username: 'Scipriano',
+      name: 'Silesio Cipriano',
+      email: 'silesiocipriano',
+      avatar: 'https://github.com/Silesio-Cipriano.png',
+      createdAt: new Date(),
+    },
+  };
+}

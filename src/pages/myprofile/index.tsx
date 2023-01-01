@@ -16,8 +16,38 @@ import { Header } from '../../components/Header';
 import { TitleArea } from '../../components/TitleArea';
 import { dataArray } from '../../utils/data';
 
+import { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../context/AuthContext';
+
 export default function MyProfile() {
-  const data = dataArray;
+  const { user } = useContext(AuthContext);
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [birthDay, setBirthDay] = useState('');
+  const [avatar, setAvatar] = useState('');
+
+  useEffect(() => {
+    setName(user?.name + '');
+    setEmail(user?.email + '');
+    setAvatar(user?.avatar + '');
+    const birth = formatDate(user?.createdAt + '');
+    setBirthDay(birth);
+    console.log(birth);
+  }, [user]);
+
+  function formatDate(date: string) {
+    var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+  }
+
   return (
     <>
       <Header variant="logged" />
@@ -34,7 +64,7 @@ export default function MyProfile() {
         <Flex as="form" flexDir="column" gap={6} align="center">
           <FormLabel htmlFor="upload" alignItems="center" variant="unstyled">
             <Image
-              src="https://images.pexels.com/photos/7250029/pexels-photo-7250029.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
+              src={avatar}
               borderRadius={10}
               w={[100, 176]}
               h={[94, 170]}
@@ -59,12 +89,16 @@ export default function MyProfile() {
             name="nome"
             placeholder="Digite o seu nome"
             w={[270, 456]}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             _placeholder={{ fontSize: 16 }}
           />
           <InputForm
             label="E-mail"
             name="email"
             type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             w={[270, 456]}
             placeholder="Digite o seu email"
             _placeholder={{ fontSize: 16 }}
@@ -74,6 +108,8 @@ export default function MyProfile() {
             name="dataNascimento"
             id="dataNascimento"
             type="date"
+            value={birthDay}
+            onChange={(e) => setBirthDay(e.target.value)}
             w={[270, 456]}
             placeholder="Digite a sua senha"
             _placeholder={{ fontSize: 16 }}
@@ -94,7 +130,7 @@ export default function MyProfile() {
             />
             <InputForm
               label="Confirmar Senha"
-              name="senha"
+              name="senha02"
               type="password"
               w={[270, 190]}
               placeholder="Digite a sua senha"

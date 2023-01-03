@@ -22,7 +22,7 @@ export default function Home() {
       title:
         'Um homem feliz é aquele que pode ver a beleza na natureza, ouvir a música no silêncio e sentir a presença de Deus em todas as coisas.',
       description:
-        'Vivamus velit velit, interdum vel velit ut, auctor ullamcorper elit. Praesent a urna et nibh tempor scelerisque. Nullam consequat, sapien et tempor consectetur, erat ligula tempus mi, ac sollicitudin velit velit vel libero. Pellentesque imperdiet mauris sed purus euismod, et posuere lectus tempor.',
+        'A Segunda Guerra Mundial foi um conflito militar global que durou de 1939 a 1945. Foi a guerra mais ampla da história, envolvendo a maioria das nações do mundo - incluindo todas as grandes potências - eventuaismente formando dois alianças militares opostas: os Aliados e os Países do Eixo. Foi principalmente lutada na Europa, Ásia e, em menor escala, na África e no Pacífico. Foi o primeiro conflito em que o ar, o mar e o solo foram os principais teatros de operações. A Segunda Guerra Mundial começou com a invasão da Polônia pelo Terceiro Reich alemão, liderado pelo ditador Adolf Hitler. Os Aliados, liderados pelos Estados Unidos, o Reino Unido e a França, derrotaram os Países do Eixo, liderados pela Alemanha, o Império do Japão e o Reino de Itália, e puseram fim à guerra. O conflito resultou na morte de mais de 70 milhões de pessoas, tornando-se o conflito mais mortal da história da humanidade.',
       likes: 5,
       numberOfComments: 5,
       authorTitle: 'Joseph Addison',

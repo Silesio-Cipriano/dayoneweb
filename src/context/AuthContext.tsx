@@ -19,6 +19,7 @@ type User = {
   avatar: string;
   email: string;
   createdAt: Date;
+  birthday: string;
 };
 
 type AuthContextType = {

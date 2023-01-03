@@ -128,14 +128,18 @@ export function Actions({
   }
   return (
     <Flex align="end" justify="center" gap={[12, 16]} mt={[6, 4]}>
-      <Flex flexDir="column" align="center" justify="space-between">
+      <Flex
+        flexDir={['row', 'column']}
+        align="center"
+        justify="space-between"
+        gap={['2', '4']}
+      >
         <Button
           variant="outline"
           w={[12, 20]}
           h={[12, 20]}
           borderRadius="full"
           borderColor={liked ? 'red' : '#E3E3E3'}
-          width="20"
           onClick={changeLike}
         >
           <Icon
@@ -157,13 +161,17 @@ export function Actions({
       </Flex>
 
       <Link href="/">
-        <Flex flexDir="column" align="center" justify="space-between">
+        <Flex
+          flexDir={['row', 'column']}
+          align="center"
+          justify="space-between"
+          gap={['2', '4']}
+        >
           <Button
             variant="outline"
             w={[12, 20]}
             h={[12, 20]}
             borderRadius="full"
-            width="20"
             borderColor={'#E3E3E3'}
           >
             <Icon

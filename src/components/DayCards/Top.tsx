@@ -25,7 +25,9 @@ export function Top({ autor, createdAt }: TopProps) {
         </Flex>
       </Link>
 
-      <Text fontSize={[14, 24]}>{createdAt}</Text>
+      <Text fontSize={[14, 24]} fontFamily="Tuffy">
+        {createdAt}
+      </Text>
     </Flex>
   );
 }

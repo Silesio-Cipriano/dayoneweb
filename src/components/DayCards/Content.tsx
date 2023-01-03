@@ -15,7 +15,9 @@ export function Content({ description }: ContentProps) {
         maxWidth={998}
         fontSize={[16, 24]}
         fontWeight="medium"
+        fontFamily="Nunito"
         textAlign={['center', 'start']}
+        mt={['2', '0']}
       >
         {description}
       </Flex>

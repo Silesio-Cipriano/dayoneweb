@@ -8,6 +8,7 @@ import {
   Image,
   Input,
   Text,
+  Link as ChakraUILink,
 } from '@chakra-ui/react';
 import { Upload, UploadCloud } from 'react-feather';
 import { MyDayCard } from '../../components/DayCards/MyDayCard';
@@ -18,6 +19,8 @@ import { dataArray } from '../../utils/data';
 
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
+import { userAcronim } from '../../utils/userAcronim';
+import Link from 'next/link';
 
 export default function MyProfile() {
   const { user } = useContext(AuthContext);
@@ -31,7 +34,7 @@ export default function MyProfile() {
     setName(user?.name + '');
     setEmail(user?.email + '');
     setAvatar(user?.avatar + '');
-    const birth = formatDate(user?.createdAt + '');
+    const birth = formatDate(user?.birthday + '');
     setBirthDay(birth);
     console.log(birth);
   }, [user]);
@@ -63,13 +66,34 @@ export default function MyProfile() {
       >
         <Flex as="form" flexDir="column" gap={6} align="center">
           <FormLabel htmlFor="upload" alignItems="center" variant="unstyled">
-            <Image
-              src={avatar}
-              borderRadius={10}
-              w={[100, 176]}
-              h={[94, 170]}
-              objectFit="cover"
-            />
+            {avatar ? (
+              <Image
+                src={avatar}
+                borderRadius={10}
+                w={[100, 176]}
+                h={[94, 170]}
+                objectFit="cover"
+              />
+            ) : (
+              <Flex
+                w={[100, 176]}
+                h={[94, 170]}
+                align="center"
+                justify="center"
+                borderWidth={1}
+                borderRadius={10}
+                borderColor="black.900"
+              >
+                <Text
+                  fontSize={['24', '58']}
+                  fontWeight="bold"
+                  textAlign="center"
+                >
+                  {userAcronim(user?.name + '')}
+                </Text>
+              </Flex>
+            )}
+
             <Center bg="red">
               <Icon
                 as={Upload}
@@ -81,7 +105,13 @@ export default function MyProfile() {
                 borderRadius="2"
               />
             </Center>
-            <Input type="file" id="upload" variant="unstyled" hidden />
+            <Input
+              type="file"
+              id="upload"
+              variant="unstyled"
+              hidden
+              onChange={(e) => console.log(e.target.value)}
+            />
           </FormLabel>
 
           <InputForm
@@ -114,7 +144,7 @@ export default function MyProfile() {
             placeholder="Digite a sua senha"
             _placeholder={{ fontSize: 16 }}
           />
-          <Flex
+          {/* <Flex
             justify="space-between"
             flexDir={['column', 'row']}
             w="100%"
@@ -136,7 +166,7 @@ export default function MyProfile() {
               placeholder="Digite a sua senha"
               _placeholder={{ fontSize: 16 }}
             />
-          </Flex>
+          </Flex> */}
 
           <Button
             bg="black.900"
@@ -148,6 +178,9 @@ export default function MyProfile() {
           >
             Salvar alterações
           </Button>
+          <ChakraUILink as={Link} href="" color="red.900">
+            Esqueci a minha senha
+          </ChakraUILink>
         </Flex>
       </Flex>
     </>

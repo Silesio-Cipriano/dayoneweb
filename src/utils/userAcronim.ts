@@ -1,4 +1,4 @@
-export function userAcronim(name: string) {
+function userAcronim(name: string) {
   let username = name.split(' ');
   let acronym = '';
   if (username.length > 1) {
@@ -8,3 +8,5 @@ export function userAcronim(name: string) {
   }
   return acronym;
 }
+
+export { userAcronim };

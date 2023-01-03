@@ -76,19 +76,21 @@ export function Header({ variant = 'normal' }: HeaderProps) {
                     borderRadius={4}
                   />
                 ) : (
-                  <Text>{userAcronim(user?.name + '')}</Text>
+                  <Text fontSize={[20, 24]} padding={['2', '6']}>
+                    {userAcronim(user?.name + '')}
+                  </Text>
                 )}
               </Button>
             </PopoverTrigger>
             <Portal>
-              <PopoverContent w={'44'} mt="2" shadow={'md'}>
+              <PopoverContent w={['38', '44']} mt={['1', '2']} shadow={'md'}>
                 <PopoverHeader>
                   <ChakraUILink
                     as={Link}
                     href="/mydaynotes"
                     _hover={{ textDecoration: 'none' }}
                   >
-                    <Text fontSize="20" fontFamily="Lato">
+                    <Text fontSize={['16', '20']} fontFamily="Lato">
                       Minhas notas
                     </Text>
                   </ChakraUILink>
@@ -100,7 +102,7 @@ export function Header({ variant = 'normal' }: HeaderProps) {
                       href="/createdaynote"
                       _hover={{ textDecoration: 'none' }}
                     >
-                      <Text fontSize="20" fontFamily="Lato">
+                      <Text fontSize={['16', '20']} fontFamily="Lato">
                         Criar nota diaria
                       </Text>
                     </ChakraUILink>
@@ -109,7 +111,7 @@ export function Header({ variant = 'normal' }: HeaderProps) {
                       href="/myprofile"
                       _hover={{ textDecoration: 'none' }}
                     >
-                      <Text fontSize="20" fontFamily="Lato">
+                      <Text fontSize={['16', '20']} fontFamily="Lato">
                         Editar perfil
                       </Text>
                     </ChakraUILink>
@@ -121,7 +123,11 @@ export function Header({ variant = 'normal' }: HeaderProps) {
                     href="/"
                     _hover={{ textDecoration: 'none' }}
                   >
-                    <Text fontSize="20" fontFamily="Lato" color="red.900">
+                    <Text
+                      fontSize={['16', '20']}
+                      fontFamily="Lato"
+                      color="red.900"
+                    >
                       Sair
                     </Text>
                   </ChakraUILink>

@@ -25,6 +25,7 @@ export function Title({
             fontSize={[16, 28]}
             fontWeight="bold"
             textAlign={['center', 'start']}
+            fontFamily="Tuffy"
           >
             "{title}"
           </Text>

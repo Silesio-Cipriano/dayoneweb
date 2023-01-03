@@ -48,7 +48,7 @@ export default function Login() {
           gap="4"
         >
           <Heading fontSize={48}>ENTRAR</Heading>
-          <ChakraLink mt="10" w="100%">
+          <ChakraLink mt="10" w="100%" _hover={{ textDecoration: 'none' }}>
             <Button w="100%" h={20} gap="10">
               <Image src={LogoGmail} />
               <Text>Entrar com conta google</Text>
@@ -91,7 +91,11 @@ export default function Login() {
               Entrar
             </Button>
 
-            <ChakraLink as={Link} href="register">
+            <ChakraLink
+              as={Link}
+              href="register"
+              _hover={{ textDecoration: 'none' }}
+            >
               <Button
                 w={[128, 188]}
                 variant="outline"

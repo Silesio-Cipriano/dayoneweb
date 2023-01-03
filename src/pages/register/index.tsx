@@ -30,9 +30,10 @@ export default function Login() {
         align="center"
         justify="center"
         gap="4"
+        as="form"
       >
         <Heading fontSize={48}>CRIAR CONTA</Heading>
-        <ChakraLink mt="10" w="100%">
+        <ChakraLink mt="10" w="100%" _hover={{ textDecoration: 'none' }}>
           <Button w="100%" h={20} gap="10">
             <Image src={LogoGmail} />
             <Text>Criar com conta google</Text>
@@ -46,14 +47,25 @@ export default function Login() {
         <InputForm
           label="Nome"
           name="nome"
+          isRequired
           placeholder="Digite o seu nome"
           w={[270, 456]}
           _placeholder={{ fontSize: 16 }}
         />
         <InputForm
-          label="Senha"
-          name="senha"
-          type="password"
+          label="Email"
+          name="email"
+          type="email"
+          isRequired
+          w={[270, 456]}
+          placeholder="Digite o seu email"
+          _placeholder={{ fontSize: 16 }}
+        />
+        <InputForm
+          label="Data nascimento"
+          name="dataNascimento"
+          id="dataNascimento"
+          type="date"
           w={[270, 456]}
           placeholder="Digite a sua senha"
           _placeholder={{ fontSize: 16 }}
@@ -61,6 +73,7 @@ export default function Login() {
         <InputForm
           label="Senha"
           name="senha"
+          isRequired
           type="password"
           w={[270, 456]}
           placeholder="Digite a sua senha"
@@ -68,7 +81,11 @@ export default function Login() {
         />
 
         <Flex justify="space-between" w="100%" gap="10" mt="6">
-          <ChakraLink as={Link} href="login">
+          <ChakraLink
+            as={Link}
+            href="login"
+            _hover={{ textDecoration: 'none' }}
+          >
             <Button
               w={[128, 188]}
               variant="outline"
@@ -80,18 +97,17 @@ export default function Login() {
             </Button>
           </ChakraLink>
 
-          <ChakraLink as={Link} href="register">
-            <Button
-              bg="black.900"
-              w={[200, 300]}
-              h={[14, 84]}
-              borderRadius="4"
-              color="white"
-              fontSize={[16, 20]}
-            >
-              Criar conta
-            </Button>
-          </ChakraLink>
+          <Button
+            bg="black.900"
+            w={[200, 300]}
+            h={[14, 84]}
+            borderRadius="4"
+            color="white"
+            fontSize={[16, 20]}
+            type="submit"
+          >
+            Criar conta
+          </Button>
         </Flex>
       </Flex>
     </Flex>

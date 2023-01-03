@@ -18,6 +18,7 @@ import Link from 'next/link';
 import { Bell } from 'react-feather';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { userAcronim } from '../utils/userAcronim';
 
 interface HeaderProps {
   variant?: 'normal' | 'logged';
@@ -66,13 +67,17 @@ export function Header({ variant = 'normal' }: HeaderProps) {
           <Popover placement="bottom-end">
             <PopoverTrigger>
               <Button padding="0" w="auto">
-                <Image
-                  src={user?.avatar}
-                  width={[14, 16]}
-                  height={[12, 14]}
-                  objectFit="cover"
-                  borderRadius={4}
-                />
+                {user?.avatar ? (
+                  <Image
+                    src={user?.avatar}
+                    width={[14, 16]}
+                    height={[12, 14]}
+                    objectFit="cover"
+                    borderRadius={4}
+                  />
+                ) : (
+                  <Text>{userAcronim(user?.name + '')}</Text>
+                )}
               </Button>
             </PopoverTrigger>
             <Portal>

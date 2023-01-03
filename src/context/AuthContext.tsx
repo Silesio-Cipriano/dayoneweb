@@ -1,7 +1,8 @@
 import { createContext, ReactNode, useEffect, useState } from 'react';
-import { recoveryUserInformation, signInRequest } from '../services/auth';
+import { signInRequest, recoveryUserInformation } from '../services/auth';
 import { parseCookies, setCookie } from 'nookies';
 import Router from 'next/router';
+import { api } from '../services/api';
 
 type SignInData = {
   email: string;
@@ -33,11 +34,16 @@ export function AuthProvider({ children }: AuthProviderType) {
   const isAuthenticated = !!user;
 
   useEffect(() => {
-    const { 'dayone.token': token } = parseCookies();
+    async function dataReload() {
+      const { 'dayone.token': token } = parseCookies();
 
-    if (token) {
-      recoveryUserInformation().then((response) => setUser(response.user));
+      if (token) {
+        const { user } = await recoveryUserInformation();
+        setUser(user);
+      }
     }
+
+    dataReload();
   }, []);
 
   async function signIn({ email, password }: SignInData) {
@@ -46,13 +52,20 @@ export function AuthProvider({ children }: AuthProviderType) {
       password,
     });
 
-    setCookie(undefined, 'dayone.token', token, {
-      maxAge: 60 * 60 * 1, //1 hora
-    });
+    console.log('Token: ', token);
+    if (token) {
+      setCookie(undefined, 'dayone.token', token, {
+        maxAge: 60 * 60 * 1, //1 hora
+      });
 
-    setUser(user);
+      api.defaults.headers['Authorization'] = `Bearer ${token}`;
 
-    Router.push('/');
+      setUser(user);
+
+      Router.push('/home');
+    } else {
+      alert('Password or email incorrect');
+    }
   }
 
   return (

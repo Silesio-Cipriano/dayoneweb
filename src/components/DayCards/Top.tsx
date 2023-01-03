@@ -7,9 +7,14 @@ interface TopProps {
 }
 export function Top({ autor, createdAt }: TopProps) {
   return (
-    <Flex w="100%" justify="space-between" align="center">
+    <Flex
+      w="100%"
+      justify={['none', 'space-between']}
+      flexDir={['column', 'row']}
+      align="center"
+    >
       <Link href="" className="">
-        <Flex align="center" gap="6">
+        <Flex align="center" gap={['2', '6']} flexDir={['column', 'row']}>
           <Image
             src="https://images.pexels.com/photos/14156051/pexels-photo-14156051.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
             alt=""
@@ -25,7 +30,7 @@ export function Top({ autor, createdAt }: TopProps) {
         </Flex>
       </Link>
 
-      <Text fontSize={[14, 24]} fontFamily="Tuffy">
+      <Text fontSize={[14, 24]} mt={[6, 0]} fontFamily="Tuffy">
         {createdAt}
       </Text>
     </Flex>

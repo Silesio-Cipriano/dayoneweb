@@ -25,7 +25,7 @@ export function Title({
             fontSize={[16, 28]}
             fontWeight="bold"
             textAlign={['center', 'start']}
-            fontFamily="Tuffy"
+            mt={[4, 0]}
           >
             "{title}"
           </Text>
@@ -35,6 +35,7 @@ export function Title({
             fontSize={[14, 20]}
             fontWeight="thin"
             textAlign={['center', 'start']}
+            fontFamily="Tuffy"
           >
             — {authorTitle} —
           </Text>
@@ -44,7 +45,7 @@ export function Title({
     );
   }
   return (
-    <Flex w="100%" flexDir="column" mt="10" maxWidth={912}>
+    <Flex w="100%" flexDir="column" mt={['4', '10']} maxWidth={912}>
       <Text
         fontSize={[16, 28]}
         fontWeight="bold"

@@ -37,7 +37,7 @@ export function Actions({
     return (
       <>
         <Flex align="center" justify="center" gap={[6, 8]} mt={[6, 4]}>
-          <Flex
+          {/* <Flex
             flexDir="column"
             align="center"
             w="78"
@@ -54,7 +54,7 @@ export function Actions({
                 />
               </Flex>
             </Button>
-          </Flex>
+          </Flex> */}
 
           <Flex
             flexDir="column"
@@ -64,7 +64,7 @@ export function Actions({
             justify="space-between"
           >
             <Button variant="unstyled" w="78" h="78">
-              <Link href="/MyNotes">
+              <Link href="/createdaynote">
                 <Flex border={['1px', '2px']} borderRadius="full" p={[2, 4]}>
                   <Icon
                     as={Edit2}
@@ -96,7 +96,8 @@ export function Actions({
             </Button>
           </Flex>
         </Flex>
-        <Center>
+        {/* Comment */}
+        {/* <Center>
           <Link href="/">
             <Flex flexDir="column" justify="space-between" mt={['1', '10']}>
               <Text fontSize={[14, 20]} fontWeight="bold" textAlign="center">
@@ -104,7 +105,7 @@ export function Actions({
               </Text>
             </Flex>
           </Link>
-        </Center>
+        </Center> */}
       </>
     );
   }

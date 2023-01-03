@@ -57,7 +57,7 @@ export default function CreateDayNote() {
           gap={['10', '6']}
         >
           <Flex justify="space-between" align="center" mt="20">
-            <Heading>Criar nota diaria</Heading>
+            <Heading>Nova</Heading>
             <Button
               w={[124, 255]}
               h={[10, 50]}
@@ -88,7 +88,7 @@ export default function CreateDayNote() {
               bg="blue.400"
             />
             <Button bg="blue.400" h={16} w={284} onClick={modalVisibleStatus}>
-              <Image src={emoji.emoji} w={68} />
+              <Image src={emoji.emoji} w={'12'} />
             </Button>
           </Flex>
           <Textarea

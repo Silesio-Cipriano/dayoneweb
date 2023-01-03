@@ -18,7 +18,7 @@ export function TitleArea({ variantComponent }: TitleAreaProps) {
       <Flex flexDir="column" w="100%">
         <Flex w="100%" mx="auto" align="center" justifyContent="space-between">
           <Text fontFamily="Lato" fontSize={[32, 46, 76]} fontWeight="bold">
-            Day card
+            Dia {new Date().getDate()}
           </Text>
 
           <ChakraUILink
@@ -49,8 +49,14 @@ export function TitleArea({ variantComponent }: TitleAreaProps) {
   if (variantComponent === 'other') {
     return (
       <Flex flexDir="column" w="100%">
-        <Flex w="100%" mx="auto" align="center" justifyContent="space-between">
-          <Flex align="center" gap={['2', '10']}>
+        <Flex
+          w="100%"
+          mx="auto"
+          align="center"
+          flexDir={['column', 'row']}
+          justifyContent="space-between"
+        >
+          <Flex align="center" gap={['2', '10']} flexDir={['column', 'row']}>
             <Image
               w={[14, 20]}
               h={[14, 20]}
@@ -62,14 +68,19 @@ export function TitleArea({ variantComponent }: TitleAreaProps) {
               Courtney Henry
             </Text>
           </Flex>
-          <Input
+          {/* <Input
             placeholder="Pesquisar por nome"
             variant="flushed"
-            w={[190, 300]}
+            w={[200, 300]}
             fontSize={[16, 24]}
             pl="2"
-            _placeholder={{ fontSize: 14 }}
-          />
+            mt={[2, 0]}
+            textAlign={['center', 'start']}
+            _placeholder={{
+              fontSize: [16, 18],
+              textAlign: ['center', 'start'],
+            }}
+          /> */}
         </Flex>
         <Divider borderWidth={1.2} mt={['2', '5']} />
       </Flex>
@@ -84,10 +95,10 @@ export function TitleArea({ variantComponent }: TitleAreaProps) {
         <Input
           placeholder="Pesquisar por nome"
           variant="flushed"
-          w={[245, 300]}
-          fontSize={24}
+          w={[200, 300]}
+          fontSize={[16, 24]}
           pl="2"
-          _placeholder={{ fontSize: 18 }}
+          _placeholder={{ fontSize: [16, 18] }}
         />
       </Flex>
       <Divider borderWidth={1.2} mt={['2', '5']} />

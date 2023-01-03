@@ -8,10 +8,30 @@ import {
   Text,
 } from '@chakra-ui/react';
 import Link from 'next/link';
+import { useContext } from 'react';
 import { Divide } from 'react-feather';
+import { useForm } from 'react-hook-form';
 import LogoGmail from '../../assets/logoGmail.svg';
 import { InputForm } from '../../components/Form/Input';
-export default function Login() {
+import { AuthContext } from '../../context/AuthContext';
+import { signUpRequest } from '../../services/signUp';
+
+type ISignUp = {
+  name: string;
+  email: string;
+  password: string;
+  birthday: string;
+};
+export default function SignUp() {
+  const { signIn } = useContext(AuthContext);
+  const { register, handleSubmit } = useForm<ISignUp>();
+
+  async function signUpSubmit(data: ISignUp) {
+    console.log('SignUpData:', data);
+    await signUpRequest(data).then(async () => {
+      await signIn({ email: data.email, password: data.password });
+    });
+  }
   return (
     <Flex
       w="100%"
@@ -31,6 +51,7 @@ export default function Login() {
         justify="center"
         gap="4"
         as="form"
+        onSubmit={handleSubmit(signUpSubmit)}
       >
         <Heading fontSize={48}>CRIAR CONTA</Heading>
         <ChakraLink mt="10" w="100%" _hover={{ textDecoration: 'none' }}>
@@ -45,14 +66,16 @@ export default function Login() {
           <Divider h="0.4" bg="black" />
         </Flex>
         <InputForm
+          {...register('name')}
           label="Nome"
-          name="nome"
+          name="name"
           isRequired
           placeholder="Digite o seu nome"
           w={[270, 456]}
           _placeholder={{ fontSize: 16 }}
         />
         <InputForm
+          {...register('email')}
           label="Email"
           name="email"
           type="email"
@@ -62,8 +85,9 @@ export default function Login() {
           _placeholder={{ fontSize: 16 }}
         />
         <InputForm
+          {...register('birthday')}
           label="Data nascimento"
-          name="dataNascimento"
+          name="birthday"
           id="dataNascimento"
           type="date"
           w={[270, 456]}
@@ -71,8 +95,9 @@ export default function Login() {
           _placeholder={{ fontSize: 16 }}
         />
         <InputForm
+          {...register('password')}
           label="Senha"
-          name="senha"
+          name="password"
           isRequired
           type="password"
           w={[270, 456]}

@@ -19,7 +19,7 @@ type ISignInData = {
   email: string;
   password: string;
 };
-export default function Login() {
+export default function SignIn() {
   const { register, handleSubmit } = useForm<ISignInData>();
 
   const { signIn } = useContext(AuthContext);

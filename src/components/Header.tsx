@@ -25,7 +25,7 @@ interface HeaderProps {
 }
 
 export function Header({ variant = 'normal' }: HeaderProps) {
-  const { user } = useContext(AuthContext);
+  const { user, signOut } = useContext(AuthContext);
 
   if (variant === 'logged') {
     return (
@@ -118,10 +118,10 @@ export function Header({ variant = 'normal' }: HeaderProps) {
                   </Flex>
                 </PopoverBody>
                 <PopoverFooter>
-                  <ChakraUILink
-                    as={Link}
-                    href="/"
-                    _hover={{ textDecoration: 'none' }}
+                  <Button
+                    variant="unstyled"
+                    paddingLeft="0"
+                    onClick={() => signOut()}
                   >
                     <Text
                       fontSize={['16', '20']}
@@ -130,7 +130,7 @@ export function Header({ variant = 'normal' }: HeaderProps) {
                     >
                       Sair
                     </Text>
-                  </ChakraUILink>
+                  </Button>
                 </PopoverFooter>
               </PopoverContent>
             </Portal>

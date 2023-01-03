@@ -58,7 +58,7 @@ export async function signInRequest({ email, password }: SignInRequestData) {
       password,
     })
     .then(({ data }) => {
-      console.log('Token', data.token);
+      console.log('Token', data);
       console.log();
       response = {
         token: data.token,
@@ -73,7 +73,7 @@ export async function signInRequest({ email, password }: SignInRequestData) {
       };
     })
     .catch((error) => {
-      console.log('Erro: ', error.response.data.message);
+      console.log('Erro: ', error);
     });
   return response;
 }

@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useEffect, useState } from 'react';
 import { signInRequest, recoveryUserInformation } from '../services/auth';
-import { parseCookies, setCookie } from 'nookies';
+import { parseCookies, setCookie, destroyCookie } from 'nookies';
 import Router from 'next/router';
 import { api } from '../services/api';
 
@@ -26,6 +26,7 @@ type AuthContextType = {
   user: User | null;
   isAuthenticated: boolean;
   signIn: (data: SignInData) => Promise<void>;
+  signOut: () => void;
 };
 
 const AuthContext = createContext({} as AuthContextType);
@@ -63,14 +64,19 @@ export function AuthProvider({ children }: AuthProviderType) {
 
       setUser(user);
 
-      Router.push('/home');
+      Router.push('/mydaynotes');
     } else {
       alert('Password or email incorrect');
     }
   }
 
+  function signOut() {
+    setUser(null);
+    destroyCookie({}, 'dayone.token');
+    Router.push('/');
+  }
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, signIn }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );

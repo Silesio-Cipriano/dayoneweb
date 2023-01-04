@@ -2,8 +2,9 @@ import { Flex, Image } from '@chakra-ui/react';
 
 interface ContentProps {
   description: string;
+  emoji: string;
 }
-export function Content({ description }: ContentProps) {
+export function Content({ description, emoji }: ContentProps) {
   return (
     <Flex
       justify="space-between"
@@ -22,7 +23,7 @@ export function Content({ description }: ContentProps) {
         {description}
       </Flex>
       <Flex>
-        <Image src="/images/EmojiVendeta.svg" w={[20, 32]} />
+        <Image src={emoji} w={[20, 32]} />
       </Flex>
     </Flex>
   );

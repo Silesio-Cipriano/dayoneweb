@@ -166,7 +166,7 @@ export function Header({ variant = 'normal' }: HeaderProps) {
       <Flex justify="space-between" gap="10">
         <ChakraUILink
           as={Link}
-          href="/login"
+          href="/signUp"
           fontSize={['xl', '2xl']}
           fontWeight="bold"
           fontFamily="Lato"
@@ -177,7 +177,7 @@ export function Header({ variant = 'normal' }: HeaderProps) {
 
         <ChakraUILink
           as={Link}
-          href="/register"
+          href="/signUp"
           fontSize={['xl', '2xl']}
           fontWeight="bold"
           fontFamily="Lato"

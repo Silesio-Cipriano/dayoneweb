@@ -18,37 +18,59 @@ import {
   Text,
   Textarea,
 } from '@chakra-ui/react';
-import { MyDayCard } from '../../components/DayCards/MyDayCard';
 import { Header } from '../../components/Header';
-import { TitleArea } from '../../components/TitleArea';
-import { emojiData } from '../../utils/data';
-import Emoji from '../../assets/EmojiVendeta.svg';
 import { ReactNode, useState } from 'react';
+import { getAPIClient } from '../../services/axios';
+import { GetStaticProps, InferGetStaticPropsType } from 'next';
+import { useForm } from 'react-hook-form';
+import { CreateNote } from '../../utils/types';
+import { newNoteRequest } from '../../services/notes';
+import Router from 'next/router';
 
 interface IEmojiProps {
-  id: number;
-  emoji: any;
+  id: string;
+  url: string;
 }
-export default function CreateDayNote() {
-  const data: IEmojiProps[] = emojiData;
+
+export default function CreateDayNote({
+  emojis,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
+  const data: IEmojiProps[] = emojis;
   const [modalVisible, setModalVisible] = useState(false);
   const [emoji, setEmoji] = useState<IEmojiProps>(data[data.length - 1]);
   const sizes = ['xs', 'sm', 'md', 'lg', 'xl', 'full'];
   const sizeEmoji = [12, 16, 24];
 
+  const { register, handleSubmit } = useForm<CreateNote>();
+
   function modalVisibleStatus() {
     setModalVisible(!modalVisible);
   }
-  function changeStatus(id: number) {
-    let emo = data[id];
+  function changeStatus(id: string) {
+    let emo = data[Number(id)];
     setEmoji(emo);
     modalVisibleStatus();
+  }
+
+  async function submitNewNote(data: CreateNote) {
+    data.reaction_EmojiId = emoji.id;
+    await newNoteRequest(data).then(() => {
+      Router.push('/mydaynotes');
+    });
   }
 
   return (
     <>
       <Header variant="logged" />
-      <Flex w="100%" maxWidth={1480} mx="auto" flexDir="column" px="4">
+      <Flex
+        w="100%"
+        maxWidth={1480}
+        mx="auto"
+        flexDir="column"
+        px="4"
+        as="form"
+        onSubmit={handleSubmit(submitNewNote)}
+      >
         <Flex
           w="100%"
           maxWidth={1080}
@@ -64,6 +86,7 @@ export default function CreateDayNote() {
               variant="outline"
               borderRadius="full"
               border="2px"
+              type="submit"
               colorScheme="black.900"
               _hover={{ bg: 'black.900', color: 'white', border: '2px' }}
               fontSize={['xs', 'xl']}
@@ -73,7 +96,9 @@ export default function CreateDayNote() {
           </Flex>
 
           <Textarea
-            fontSize={20}
+            {...register('title')}
+            name="title"
+            fontSize={[16, 20]}
             placeholder="Frase do dia"
             variant="filled"
             resize="none"
@@ -81,27 +106,30 @@ export default function CreateDayNote() {
           />
           <Flex gap="16" w="100%" justify="space-between">
             <Input
-              fontSize={20}
+              {...register('authorOfTitle')}
+              name="authorOfTitle"
+              fontSize={[16, 20]}
               placeholder="Autor da frase"
               variant="filled"
               h={16}
               bg="blue.400"
             />
             <Button bg="blue.400" h={16} w={284} onClick={modalVisibleStatus}>
-              <Image src={emoji.emoji} w={'12'} />
+              <Image src={emoji.url} w={'12'} />
             </Button>
           </Flex>
           <Textarea
-            fontSize={20}
+            {...register('description')}
+            name="description"
+            fontSize={[16, 20]}
             placeholder="Escrever"
             variant="filled"
             resize="none"
-            h={328}
+            h={[245, 328]}
             bg="blue.400"
           />
         </Flex>
       </Flex>
-
       <Modal
         isOpen={modalVisible}
         size={[sizes[1], sizes[4]]}
@@ -121,16 +149,17 @@ export default function CreateDayNote() {
               alignItems="center"
               ml="2"
             >
-              {data.map((Emoji) => {
+              {data.map((emoji, index) => {
                 return (
                   <Button
+                    key={index}
                     h="max-content"
                     w="max-content"
                     bg="none"
                     variant="unstyled"
-                    onClick={() => changeStatus(Emoji.id)}
+                    onClick={() => changeStatus(emoji.id)}
                   >
-                    <Image src={Emoji.emoji} w={[sizeEmoji[1], sizeEmoji[2]]} />
+                    <Image src={emoji.url} w={[sizeEmoji[1], sizeEmoji[2]]} />
                   </Button>
                 );
               })}
@@ -141,3 +170,15 @@ export default function CreateDayNote() {
     </>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const apiClient = getAPIClient();
+  const response = await apiClient.get('/note/reaction_emoji');
+  const emojis: IEmojiProps[] = response.data;
+
+  return {
+    props: {
+      emojis,
+    },
+  };
+};

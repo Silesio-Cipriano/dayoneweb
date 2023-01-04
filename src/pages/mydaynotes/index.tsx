@@ -1,11 +1,17 @@
 import { Center, Flex, Text } from '@chakra-ui/react';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { parseCookies } from 'nookies';
 import { MyDayCard } from '../../components/DayCards/MyDayCard';
 import { Header } from '../../components/Header';
 import { TitleArea } from '../../components/TitleArea';
+import { getAPIClient } from '../../services/axios';
 import { dataArray } from '../../utils/data';
+import { NoteData } from '../../utils/types';
 
-export default function MyNotes() {
-  const data = dataArray;
+export default function MyNotes({
+  notes,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const data: NoteData[] = notes;
   return (
     <>
       <Header variant="logged" />
@@ -26,8 +32,8 @@ export default function MyNotes() {
           flexDir="column"
           gap={['10', '20']}
         >
-          {data.map((data) => {
-            return <MyDayCard data={data} />;
+          {data.map((data, index) => {
+            return <MyDayCard key={index} data={data} />;
           })}
         </Flex>
         <Center my={['8', '20']}>
@@ -39,3 +45,25 @@ export default function MyNotes() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const apiClient = getAPIClient(ctx);
+  const { ['dayone.token']: token } = parseCookies(ctx);
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/signUp',
+        permanent: false,
+      },
+    };
+  }
+
+  const response = await apiClient.get('/note/user');
+  const notes: NoteData[] = response.data;
+  return {
+    props: {
+      notes,
+    },
+  };
+};

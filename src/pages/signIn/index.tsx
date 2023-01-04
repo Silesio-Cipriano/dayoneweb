@@ -93,7 +93,7 @@ export default function SignIn() {
 
             <ChakraLink
               as={Link}
-              href="register"
+              href="/signUp"
               _hover={{ textDecoration: 'none' }}
             >
               <Button

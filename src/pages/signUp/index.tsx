@@ -108,7 +108,7 @@ export default function SignUp() {
         <Flex justify="space-between" w="100%" gap="10" mt="6">
           <ChakraLink
             as={Link}
-            href="login"
+            href="/signIn"
             _hover={{ textDecoration: 'none' }}
           >
             <Button

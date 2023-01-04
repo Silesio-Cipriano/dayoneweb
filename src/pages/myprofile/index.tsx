@@ -21,6 +21,7 @@ import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { userAcronim } from '../../utils/userAcronim';
 import Link from 'next/link';
+import { formatDate } from '../../utils/formatData';
 
 export default function MyProfile() {
   const { user } = useContext(AuthContext);
@@ -38,18 +39,6 @@ export default function MyProfile() {
     setBirthDay(birth);
     console.log(birth);
   }, [user]);
-
-  function formatDate(date: string) {
-    var d = new Date(date),
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear();
-
-    if (month.length < 2) month = '0' + month;
-    if (day.length < 2) day = '0' + day;
-
-    return [year, month, day].join('-');
-  }
 
   return (
     <>

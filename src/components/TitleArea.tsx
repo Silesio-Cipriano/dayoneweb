@@ -11,14 +11,15 @@ import Link from 'next/link';
 
 interface TitleAreaProps {
   variantComponent?: 'normal' | 'user' | 'other';
+  day: number;
 }
-export function TitleArea({ variantComponent }: TitleAreaProps) {
+export function TitleArea({ variantComponent, day }: TitleAreaProps) {
   if (variantComponent === 'user') {
     return (
       <Flex flexDir="column" w="100%">
         <Flex w="100%" mx="auto" align="center" justifyContent="space-between">
           <Text fontFamily="Lato" fontSize={[32, 46, 76]} fontWeight="bold">
-            Dia {new Date().getDate()}
+            Dia {day}
           </Text>
 
           <ChakraUILink

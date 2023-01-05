@@ -18,3 +18,7 @@ export async function newNoteRequest({
       console.log('data', data);
     });
 }
+
+export async function deleteNoteRequest(id: string) {
+  await api.delete(`note/${id}`);
+}

@@ -40,11 +40,11 @@ type SignInRequestData = {
 
 type User = {
   username: string;
-  name: any;
-  email: any;
-  avatar: any;
-  createdAt: any;
-  birthday: any;
+  name: string;
+  email: string;
+  avatar: string;
+  createdAt: string;
+  birthday: string;
 };
 type IResponse = {
   token: string | null;
@@ -60,6 +60,7 @@ export async function signInRequest({ email, password }: SignInRequestData) {
     .then(({ data }) => {
       console.log('Token', data);
       console.log();
+      
       response = {
         token: data.token,
         user: {

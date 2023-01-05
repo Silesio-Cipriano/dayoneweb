@@ -1,17 +1,41 @@
-import { Center, Flex, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Center,
+  Flex,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+  Text,
+} from '@chakra-ui/react';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { parseCookies } from 'nookies';
+import { useState } from 'react';
 import { MyDayCard } from '../../components/DayCards/MyDayCard';
 import { Header } from '../../components/Header';
+import { ModalDeleteNote } from '../../components/modalDeleteNote/ModalDeleteNote';
 import { TitleArea } from '../../components/TitleArea';
 import { getAPIClient } from '../../services/axios';
+import { deleteNoteRequest } from '../../services/notes';
 import { dataArray } from '../../utils/data';
 import { NoteData } from '../../utils/types';
 
 export default function MyNotes({
   notes,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const data: NoteData[] = notes;
+  const [data, setData] = useState<NoteData[]>([...notes]);
+  const dataLength = data.length - 1;
+
+  async function deleteNote(id: string) {
+    await deleteNoteRequest(id);
+    const newData = data.filter((data) => data.note.id !== id);
+    setData([...newData]);
+  }
+
+  
+
   return (
     <>
       <Header variant="logged" />
@@ -23,7 +47,7 @@ export default function MyNotes({
         flexDir="column"
         px="4"
       >
-        <TitleArea variantComponent="user" />
+        <TitleArea variantComponent="user" day={dataLength + 2} />
         <Flex
           w="100%"
           mt={['10', '20']}
@@ -32,8 +56,15 @@ export default function MyNotes({
           flexDir="column"
           gap={['10', '20']}
         >
-          {data.map((data, index) => {
-            return <MyDayCard key={index} data={data} />;
+          {data.map((note, index) => {
+            return (
+              <MyDayCard
+                key={index}
+                data={note}
+                index={dataLength - index + 1}
+                deleteNote={deleteNote}
+              />
+            );
           })}
         </Flex>
         <Center my={['8', '20']}>

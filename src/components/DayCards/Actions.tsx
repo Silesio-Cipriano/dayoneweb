@@ -14,11 +14,13 @@ interface ActionsProps {
   likes: number;
   numberOfComments: number;
   variantComponent?: 'normal' | 'your' | 'other';
+  deleteModal: () => void;
 }
 export function Actions({
   variantComponent,
   likes,
   numberOfComments,
+  deleteModal,
 }: ActionsProps) {
   const [likeUpdate, setLikeUpdate] = useState(likes);
   const [liked, setLiked] = useState(false);
@@ -84,7 +86,7 @@ export function Actions({
             h="78"
             justify="space-between"
           >
-            <Button variant="unstyled" w="78" h="78">
+            <Button variant="unstyled" w="78" h="78" onClick={deleteModal}>
               <Flex border={['1px', '2px']} borderRadius="full" p={[2, 4]}>
                 <Icon
                   as={X}

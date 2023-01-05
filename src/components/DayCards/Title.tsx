@@ -5,12 +5,14 @@ interface Title {
   authorTitle: string;
   createdAt?: string;
   variantComponent?: 'normal' | 'your';
+  index: number;
 }
 export function Title({
   variantComponent,
   title,
   authorTitle,
   createdAt,
+  index,
 }: Title) {
   if (variantComponent === 'your') {
     return (
@@ -40,7 +42,9 @@ export function Title({
             — {authorTitle} —
           </Text>
         </Flex>
-        <Text fontSize={[16, 24]}>{createdAt}</Text>
+        <Text fontSize={[16, 24]}>
+          Dia {index} - {createdAt}
+        </Text>
       </Flex>
     );
   }

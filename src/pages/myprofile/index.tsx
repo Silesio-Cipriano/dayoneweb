@@ -16,21 +16,48 @@ import { InputForm } from '../../components/Form/Input';
 import { Header } from '../../components/Header';
 import { TitleArea } from '../../components/TitleArea';
 import { dataArray } from '../../utils/data';
-
-import { useContext, useEffect, useState } from 'react';
+import FormData from 'form-data';
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { userAcronim } from '../../utils/userAcronim';
 import Link from 'next/link';
 import { formatDate } from '../../utils/formatData';
+import { api } from '../../services/api';
+import { useForm } from 'react-hook-form';
+import fs from 'fs';
 
 export default function MyProfile() {
+  const { register, handleSubmit } = useForm();
+
   const { user } = useContext(AuthContext);
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [birthDay, setBirthDay] = useState('');
   const [avatar, setAvatar] = useState('');
+  const formData = new FormData();
 
+  async function upload(event: any) {
+    const data = await event?.target?.files[0];
+    formData.append('avatar', data);
+
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
+    };
+
+    await api
+      .patch('/user/avatar', formData, {
+        headers: { 'content-type': 'multipart/form-data' },
+      })
+      .then((response) => {
+        console.log('Response: ', response);
+      })
+      .catch((e) => {
+        console.log('Error: ', e);
+      });
+  }
   useEffect(() => {
     setName(user?.name + '');
     setEmail(user?.email + '');
@@ -53,7 +80,13 @@ export default function MyProfile() {
         justify="center"
         px="4"
       >
-        <Flex as="form" flexDir="column" gap={6} align="center">
+        <Flex
+          as="form"
+          onSubmit={handleSubmit(upload)}
+          flexDir="column"
+          gap={6}
+          align="center"
+        >
           <FormLabel htmlFor="upload" alignItems="center" variant="unstyled">
             {avatar ? (
               <Image
@@ -99,7 +132,8 @@ export default function MyProfile() {
               id="upload"
               variant="unstyled"
               hidden
-              onChange={(e) => console.log(e.target.value)}
+              {...register('avatar')}
+              onChange={(e) => upload(e)}
             />
           </FormLabel>
 
@@ -164,6 +198,7 @@ export default function MyProfile() {
             borderRadius="4"
             color="white"
             fontSize={[16, 20]}
+            type="submit"
           >
             Salvar alterações
           </Button>

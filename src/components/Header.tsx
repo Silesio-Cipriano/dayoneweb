@@ -32,7 +32,7 @@ export function Header({ variant = 'normal' }: HeaderProps) {
       <Flex
         as="header"
         w="100%"
-        maxWidth={1480}
+        maxWidth={1360}
         h="20"
         px="4"
         mx="auto"
@@ -144,7 +144,7 @@ export function Header({ variant = 'normal' }: HeaderProps) {
     <Flex
       as="header"
       w="100%"
-      maxWidth={1480}
+      maxWidth={1360}
       h="20"
       px="4"
       mx="auto"

@@ -9,8 +9,14 @@ import {
   Input,
   Text,
   Link as ChakraUILink,
+  Modal,
+  ModalContent,
+  ModalOverlay,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
 } from '@chakra-ui/react';
-import { Upload, UploadCloud } from 'react-feather';
+import { CheckCircle, Upload, UploadCloud, X } from 'react-feather';
 import { MyDayCard } from '../../components/DayCards/MyDayCard';
 import { InputForm } from '../../components/Form/Input';
 import { Header } from '../../components/Header';
@@ -25,6 +31,7 @@ import { formatDate } from '../../utils/formatData';
 import { api } from '../../services/api';
 import { useForm } from 'react-hook-form';
 import { Router, useRouter } from 'next/router';
+import { NotificationStatusModal } from '../../components/NotificationStatusModal/NotificationStatusModal';
 
 type User = {
   avatar: any;
@@ -39,7 +46,7 @@ export default function MyProfile() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [file, setFile] = useState<any>();
-  const [birthDay, setBirthDay] = useState('');
+  const [birthday, setBirthDay] = useState('');
   const [avatar, setAvatar] = useState('');
   const formData = new FormData();
 
@@ -58,18 +65,25 @@ export default function MyProfile() {
     formData.append('name', name);
     formData.append('avatar', data);
     console.log('data:', data);
-    formData.append('birthday', birthDay);
+    formData.append('birthday', birthday);
 
     await api
-      .patch('/user/avatar', formData, {
-        headers: { 'content-type': 'multipart/form-data' },
+      .put('/user/', {
+        name,
+        birthday,
       })
-      .then((response) => {
-        console.log('return:', response.data);
-        router.push('/mydaynotes').then(() => router.reload());
-      })
-      .catch((e) => {
-        console.log('Error: ', e);
+      .then(async (response) => {
+        if (data) {
+          await api
+            .patch('/user/avatar', formData, {
+              headers: { 'content-type': 'multipart/form-data' },
+            })
+            .then((response) => {})
+            .catch((e) => {
+              console.log('Error: ', e);
+            });
+        }
+        router.reload();
       });
   }
   useEffect(() => {
@@ -83,11 +97,16 @@ export default function MyProfile() {
 
   return (
     <>
+      <NotificationStatusModal
+        title="Sucesso"
+        description="Suas alteraçoes foram salvas!"
+        variant="Error"
+      />
       <Header variant="logged" />
       <Flex
         w="100%"
         mt={['6', '20']}
-        maxWidth={1480}
+        maxWidth={1360}
         mx="auto"
         flexDir="column"
         align="center"
@@ -177,7 +196,7 @@ export default function MyProfile() {
             name="birthday"
             id="dataNascimento"
             type="date"
-            value={birthDay}
+            value={birthday}
             onChange={(e) => setBirthDay(e.target.value)}
             w={[270, 456]}
             placeholder="Digite a sua senha"

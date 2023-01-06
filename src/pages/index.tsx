@@ -26,7 +26,7 @@ export default function Home() {
       >
         <Flex
           w="100%"
-          maxWidth={1480}
+          maxWidth={1360}
           mx="auto"
           h="80%"
           flexDir="column"

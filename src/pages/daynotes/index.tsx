@@ -196,12 +196,12 @@ export default function Home() {
   return (
     <>
       <Header />
-      <Flex w="100%" mt="20" maxWidth={1480} mx="auto" flexDir="column" px="4">
+      <Flex w="100%" mt="20" maxWidth={1360} mx="auto" flexDir="column" px="4">
         <TitleArea variantComponent="other" />
         <Flex
           w="100%"
           mt="20"
-          maxWidth={1480}
+          maxWidth={1360}
           mx="auto"
           flexDir="column"
           gap="20"

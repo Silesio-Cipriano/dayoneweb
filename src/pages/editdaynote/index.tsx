@@ -84,7 +84,7 @@ export default function EditDayNote({
       <Header variant="logged" />
       <Flex
         w="100%"
-        maxWidth={1480}
+        maxWidth={1360}
         mx="auto"
         flexDir="column"
         px="4"

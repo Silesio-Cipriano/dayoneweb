@@ -40,7 +40,7 @@ export default function MyNotes({
       <Flex
         w="100%"
         mt={['6', '20']}
-        maxWidth={1480}
+        maxWidth={1360}
         mx="auto"
         flexDir="column"
         px="4"
@@ -49,7 +49,7 @@ export default function MyNotes({
         <Flex
           w="100%"
           mt={['10', '20']}
-          maxWidth={1480}
+          maxWidth={1360}
           mx="auto"
           flexDir="column"
           gap={['10', '20']}

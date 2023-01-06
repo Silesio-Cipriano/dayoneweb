@@ -182,16 +182,16 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const response = await apiClient.get('/note/reaction_emoji');
   const emojis: IEmojiProps[] = response.data;
 
-  const { ['dayone.token']: token } = parseCookies(ctx);
+  // const { ['dayone.token']: token } = parseCookies(ctx);
 
-  if (!token) {
-    return {
-      redirect: {
-        destination: '/signIn',
-        permanent: false,
-      },
-    };
-  }
+  // if (!token) {
+  //   return {
+  //     redirect: {
+  //       destination: '/signIn',
+  //       permanent: false,
+  //     },
+  //   };
+  // }
 
   return {
     props: {

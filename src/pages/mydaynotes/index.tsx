@@ -34,8 +34,6 @@ export default function MyNotes({
     setData([...newData]);
   }
 
-  
-
   return (
     <>
       <Header variant="logged" />
@@ -84,7 +82,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   if (!token) {
     return {
       redirect: {
-        destination: '/signUp',
+        destination: '/signIn',
         permanent: false,
       },
     };

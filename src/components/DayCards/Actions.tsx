@@ -15,12 +15,14 @@ interface ActionsProps {
   numberOfComments: number;
   variantComponent?: 'normal' | 'your' | 'other';
   deleteModal: () => void;
+  idNote: string;
 }
 export function Actions({
   variantComponent,
   likes,
   numberOfComments,
   deleteModal,
+  idNote,
 }: ActionsProps) {
   const [likeUpdate, setLikeUpdate] = useState(likes);
   const [liked, setLiked] = useState(false);
@@ -66,7 +68,9 @@ export function Actions({
             justify="space-between"
           >
             <Button variant="unstyled" w="78" h="78">
-              <Link href="/createdaynote">
+              <Link
+                href={{ pathname: '/editdaynote', query: { nxiu6s: idNote } }}
+              >
                 <Flex border={['1px', '2px']} borderRadius="full" p={[2, 4]}>
                   <Icon
                     as={Edit2}

@@ -26,7 +26,6 @@ export function MyDayCard({ data, index, deleteNote }: DayCardProps) {
     deleteNote(id);
   }
 
-  
   return (
     <>
       <ModalDeleteNote
@@ -53,6 +52,7 @@ export function MyDayCard({ data, index, deleteNote }: DayCardProps) {
             numberOfComments={4}
             variantComponent="your"
             deleteModal={changeStatusModal}
+            idNote={data.note.id}
           />
         </Flex>
       </Flex>

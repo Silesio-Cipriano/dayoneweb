@@ -24,35 +24,49 @@ import Link from 'next/link';
 import { formatDate } from '../../utils/formatData';
 import { api } from '../../services/api';
 import { useForm } from 'react-hook-form';
-import fs from 'fs';
+import { Router, useRouter } from 'next/router';
 
+type User = {
+  avatar: any;
+  name: string;
+  birthday: string;
+};
 export default function MyProfile() {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm<User>();
 
   const { user } = useContext(AuthContext);
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [file, setFile] = useState<any>();
   const [birthDay, setBirthDay] = useState('');
   const [avatar, setAvatar] = useState('');
   const formData = new FormData();
 
-  async function upload(event: any) {
-    const data = await event?.target?.files[0];
-    formData.append('avatar', data);
+  async function changeAvatar(uploadUser: any) {
+    const value = await uploadUser?.target?.files[0];
+    const avatar = URL.createObjectURL(value);
+    setAvatar(avatar);
+    setFile(value);
+    return value;
+  }
 
-    const config = {
-      headers: {
-        'content-type': 'multipart/form-data',
-      },
-    };
+  const router = useRouter();
+
+  async function uploadUser(dt: User) {
+    const data = file;
+    formData.append('name', name);
+    formData.append('avatar', data);
+    console.log('data:', data);
+    formData.append('birthday', birthDay);
 
     await api
       .patch('/user/avatar', formData, {
         headers: { 'content-type': 'multipart/form-data' },
       })
       .then((response) => {
-        console.log('Response: ', response);
+        console.log('return:', response.data);
+        router.push('/mydaynotes').then(() => router.reload());
       })
       .catch((e) => {
         console.log('Error: ', e);
@@ -82,12 +96,12 @@ export default function MyProfile() {
       >
         <Flex
           as="form"
-          onSubmit={handleSubmit(upload)}
+          onSubmit={handleSubmit(uploadUser)}
           flexDir="column"
           gap={6}
           align="center"
         >
-          <FormLabel htmlFor="upload" alignItems="center" variant="unstyled">
+          <FormLabel alignItems="center" variant="unstyled">
             {avatar ? (
               <Image
                 src={avatar}
@@ -128,25 +142,26 @@ export default function MyProfile() {
               />
             </Center>
             <Input
+              {...register('avatar')}
               type="file"
               id="upload"
               variant="unstyled"
+              onChange={(e) => changeAvatar(e)}
               hidden
-              {...register('avatar')}
-              onChange={(e) => upload(e)}
             />
           </FormLabel>
 
           <InputForm
+            {...register('name')}
             label="Nome"
-            name="nome"
+            name="name"
             placeholder="Digite o seu nome"
             w={[270, 456]}
             value={name}
             onChange={(e) => setName(e.target.value)}
             _placeholder={{ fontSize: 16 }}
           />
-          <InputForm
+          {/* <InputForm
             label="E-mail"
             name="email"
             type="email"
@@ -155,10 +170,11 @@ export default function MyProfile() {
             w={[270, 456]}
             placeholder="Digite o seu email"
             _placeholder={{ fontSize: 16 }}
-          />
+          /> */}
           <InputForm
+            {...register('birthday')}
             label="Data nascimento"
-            name="dataNascimento"
+            name="birthday"
             id="dataNascimento"
             type="date"
             value={birthDay}

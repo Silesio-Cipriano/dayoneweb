@@ -20,5 +20,17 @@ export async function newNoteRequest({
 }
 
 export async function deleteNoteRequest(id: string) {
-  await api.delete(`note/${id}`);
+  await api.delete(`/note/${id}`);
+}
+
+export async function uploadNoteRequest(
+  { authorOfTitle, description, reaction_EmojiId, title }: CreateNote,
+  noteId: string
+) {
+  await api.put(`/note/${noteId}`, {
+    authorOfTitle,
+    description,
+    reaction_EmojiId,
+    title,
+  });
 }

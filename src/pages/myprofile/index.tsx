@@ -32,6 +32,9 @@ import { api } from '../../services/api';
 import { useForm } from 'react-hook-form';
 import { Router, useRouter } from 'next/router';
 import { NotificationStatusModal } from '../../components/NotificationStatusModal/NotificationStatusModal';
+import { GetServerSideProps } from 'next';
+import { parseCookies } from 'nookies';
+import { getAPIClient } from '../../services/axios';
 
 type User = {
   avatar: any;
@@ -40,6 +43,16 @@ type User = {
 };
 export default function MyProfile() {
   const { register, handleSubmit } = useForm<User>();
+  const [sucessModal, setSucessModal] = useState(false);
+  const [errorModal, setErrorModal] = useState(false);
+
+  function changeStatusSucessModal() {
+    setSucessModal(!sucessModal);
+  }
+
+  function changeStatusErrorModal() {
+    setErrorModal(!errorModal);
+  }
 
   const { user } = useContext(AuthContext);
 
@@ -60,12 +73,9 @@ export default function MyProfile() {
 
   const router = useRouter();
 
-  async function uploadUser(dt: User) {
+  async function uploadUser() {
     const data = file;
-    formData.append('name', name);
     formData.append('avatar', data);
-    console.log('data:', data);
-    formData.append('birthday', birthday);
 
     await api
       .put('/user/', {
@@ -78,12 +88,19 @@ export default function MyProfile() {
             .patch('/user/avatar', formData, {
               headers: { 'content-type': 'multipart/form-data' },
             })
-            .then((response) => {})
+            .then((response) => {
+              changeStatusSucessModal();
+              setTimeout(changeStatusSucessModal, 5000);
+            })
             .catch((e) => {
-              console.log('Error: ', e);
+              changeStatusErrorModal();
+              setTimeout(changeStatusErrorModal, 5000);
             });
+        } else {
+          changeStatusSucessModal();
+          setTimeout(changeStatusSucessModal, 5000);
         }
-        router.reload();
+        setTimeout(router.reload, 5000);
       });
   }
   useEffect(() => {
@@ -100,7 +117,16 @@ export default function MyProfile() {
       <NotificationStatusModal
         title="Sucesso"
         description="Suas alteraçoes foram salvas!"
+        variant="Sucess"
+        open={sucessModal}
+        close={changeStatusSucessModal}
+      />
+      <NotificationStatusModal
+        title="Falha"
+        description="Não foi possivel salvar a imagem, tente de novo ou tente outra imagem!"
         variant="Error"
+        open={errorModal}
+        close={changeStatusErrorModal}
       />
       <Header variant="logged" />
       <Flex
@@ -245,3 +271,20 @@ export default function MyProfile() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { ['dayone.token']: token } = parseCookies(ctx);
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/signIn',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};

@@ -17,6 +17,8 @@ interface NotificationStatusModalProps {
   description: string;
   icon?: any;
   variant?: 'Sucess' | 'Warning' | 'Error';
+  open: boolean;
+  close: () => void;
 }
 
 export function NotificationStatusModal({
@@ -24,6 +26,8 @@ export function NotificationStatusModal({
   description,
   icon,
   variant,
+  open,
+  close,
 }: NotificationStatusModalProps) {
   let colorPrimary = 'green.100';
   let colorSecondary = 'green.900';
@@ -31,7 +35,7 @@ export function NotificationStatusModal({
 
   if (variant === 'Error') {
     colorPrimary = '#FCEDEA';
-    colorSecondary = '#EC4E2B';
+    colorSecondary = '#FF0000';
     iconAlert = AlertTriangle;
   }
 
@@ -48,7 +52,7 @@ export function NotificationStatusModal({
   }
 
   return (
-    <Modal isOpen={true} size={'xl'} onClose={() => {}}>
+    <Modal isOpen={open} size={'xl'} onClose={() => {}}>
       <ModalOverlay />
       <ModalContent
         bgColor={colorPrimary}
@@ -64,6 +68,7 @@ export function NotificationStatusModal({
               </Text>
             </Flex>
             <Button
+              onClick={close}
               data-group
               variant={'ghost'}
               _hover={{ bgColor: colorSecondary }}

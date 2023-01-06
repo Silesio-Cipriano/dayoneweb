@@ -1,7 +1,13 @@
-import { createContext, ReactNode, useEffect, useState } from 'react';
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { signInRequest, recoveryUserInformation } from '../services/auth';
 import { parseCookies, setCookie, destroyCookie } from 'nookies';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { api } from '../services/api';
 
 type SignInData = {
@@ -32,6 +38,7 @@ type AuthContextType = {
 const AuthContext = createContext({} as AuthContextType);
 
 export function AuthProvider({ children }: AuthProviderType) {
+  const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const isAuthenticated = !!user;
 
@@ -65,7 +72,7 @@ export function AuthProvider({ children }: AuthProviderType) {
 
       setUser(user);
 
-      Router.push('/mydaynotes');
+      router.push('/mydaynotes');
     } else {
       alert('Password or email incorrect');
     }

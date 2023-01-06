@@ -30,7 +30,7 @@ export function Top({ autor, createdAt }: TopProps) {
         </Flex>
       </Link>
 
-      <Text fontSize={[14, 24]} mt={[6, 0]} fontFamily="Tuffy">
+      <Text fontSize={[14, 24]} mt={[6, 0]} fontFamily="Nunito">
         {createdAt}
       </Text>
     </Flex>

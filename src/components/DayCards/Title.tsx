@@ -37,7 +37,7 @@ export function Title({
             fontSize={[14, 20]}
             fontWeight="thin"
             textAlign={['center', 'start']}
-            fontFamily="Tuffy"
+            fontFamily="Nunito"
           >
             — {authorTitle} —
           </Text>

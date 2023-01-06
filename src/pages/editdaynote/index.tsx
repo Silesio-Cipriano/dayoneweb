@@ -38,10 +38,7 @@ interface IEmojiProps {
   url: string;
 }
 
-export default function EditDayNote({
-  emojis,
-  note,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function EditDayNote({ emojis, note }: any) {
   const data: IEmojiProps[] = emojis;
   const noteData: NoteData = note;
   const [modalVisible, setModalVisible] = useState(false);

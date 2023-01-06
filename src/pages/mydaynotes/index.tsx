@@ -22,9 +22,7 @@ import { deleteNoteRequest } from '../../services/notes';
 import { dataArray } from '../../utils/data';
 import { NoteData } from '../../utils/types';
 
-export default function MyNotes({
-  notes,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function MyNotes({ notes }: any) {
   const [data, setData] = useState<NoteData[]>([...notes]);
   const dataLength = data.length - 1;
 

@@ -41,6 +41,7 @@ export function AuthProvider({ children }: AuthProviderType) {
 
       if (token) {
         const { user } = await recoveryUserInformation();
+
         setUser(user);
       }
     }

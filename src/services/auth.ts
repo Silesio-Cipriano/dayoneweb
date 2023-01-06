@@ -39,13 +39,14 @@ type SignInRequestData = {
 // }
 
 type User = {
-  username: string;
   name: string;
-  email: string;
+  username: string;
   avatar: string;
-  createdAt: string;
+  email: string;
+  createdAt: Date;
   birthday: string;
 };
+
 type IResponse = {
   token: string | null;
   user: User | null;
@@ -60,7 +61,7 @@ export async function signInRequest({ email, password }: SignInRequestData) {
     .then(({ data }) => {
       console.log('Token', data);
       console.log();
-      
+
       response = {
         token: data.token,
         user: {

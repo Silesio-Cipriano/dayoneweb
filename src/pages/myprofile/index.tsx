@@ -263,9 +263,9 @@ export default function MyProfile() {
           >
             Salvar alterações
           </Button>
-          <ChakraUILink as={Link} href="" color="red.900">
+          {/* <ChakraUILink as={Link} href="" color="red.900">
             Esqueci a minha senha
-          </ChakraUILink>
+          </ChakraUILink> */}
         </Flex>
       </Flex>
     </>

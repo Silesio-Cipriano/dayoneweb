@@ -31,6 +31,7 @@ import { useForm } from 'react-hook-form';
 import { CreateNote, NoteData } from '../../utils/types';
 import { newNoteRequest, uploadNoteRequest } from '../../services/notes';
 import Router, { useRouter } from 'next/router';
+import { parseCookies } from 'nookies';
 
 interface IEmojiProps {
   id: string;
@@ -195,6 +196,17 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const apiClient = getAPIClient(ctx);
 
   const noteId = ctx.query.nxiu6s;
+
+  const { ['dayone.token']: token } = parseCookies(ctx);
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/signIn',
+        permanent: false,
+      },
+    };
+  }
 
   let response = await apiClient.get('/note/reaction_emoji');
   const emojis: IEmojiProps[] = response.data;

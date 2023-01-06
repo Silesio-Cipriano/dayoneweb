@@ -11,7 +11,7 @@ import Link from 'next/link';
 
 interface TitleAreaProps {
   variantComponent?: 'normal' | 'user' | 'other';
-  day: number;
+  day?: number;
 }
 export function TitleArea({ variantComponent, day }: TitleAreaProps) {
   if (variantComponent === 'user') {

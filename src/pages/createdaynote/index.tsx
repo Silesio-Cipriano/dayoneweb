@@ -21,11 +21,17 @@ import {
 import { Header } from '../../components/Header';
 import { ReactNode, useState } from 'react';
 import { getAPIClient } from '../../services/axios';
-import { GetStaticProps, InferGetStaticPropsType } from 'next';
+import {
+  GetServerSideProps,
+  GetStaticProps,
+  InferGetServerSidePropsType,
+  InferGetStaticPropsType,
+} from 'next';
 import { useForm } from 'react-hook-form';
 import { CreateNote } from '../../utils/types';
 import { newNoteRequest } from '../../services/notes';
 import Router from 'next/router';
+import { parseCookies } from 'nookies';
 
 interface IEmojiProps {
   id: string;
@@ -34,7 +40,7 @@ interface IEmojiProps {
 
 export default function CreateDayNote({
   emojis,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const data: IEmojiProps[] = emojis;
   const [modalVisible, setModalVisible] = useState(false);
   const [emoji, setEmoji] = useState<IEmojiProps>(data[data.length - 1]);
@@ -171,10 +177,21 @@ export default function CreateDayNote({
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const apiClient = getAPIClient();
   const response = await apiClient.get('/note/reaction_emoji');
   const emojis: IEmojiProps[] = response.data;
+
+  const { ['dayone.token']: token } = parseCookies(ctx);
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/signIn',
+        permanent: false,
+      },
+    };
+  }
 
   return {
     props: {

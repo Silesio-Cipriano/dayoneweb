@@ -38,9 +38,8 @@ export async function signUpRequest({
     })
     .catch((error) => {
       if (error.response) {
-        alert(error.response.data.message);
-      } else if (error.request)
-        console.log('error', error.request.data.message);
+        console.log(error.response);
+      } else if (error.request) console.log('error', error.request);
     });
 
   return response;

@@ -1,7 +1,10 @@
 import { Center, Flex, Text } from '@chakra-ui/react';
+import { GetServerSideProps } from 'next';
+import { parseCookies } from 'nookies';
 import { DayCardFeed } from '../../components/DayCards/Feed';
 import { Header } from '../../components/Header';
 import { TitleArea } from '../../components/TitleArea';
+import { getAPIClient } from '../../services/axios';
 
 interface DayCardProps {
   author: string;
@@ -197,7 +200,7 @@ export default function Home() {
     <>
       <Header />
       <Flex w="100%" mt="20" maxWidth={1360} mx="auto" flexDir="column" px="4">
-        <TitleArea variantComponent="other" />
+        {/* <TitleArea  variantComponent="other"  /> */}
         <Flex
           w="100%"
           mt="20"
@@ -221,3 +224,18 @@ export default function Home() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { ['dayone.token']: token } = parseCookies(ctx);
+
+  return {
+    redirect: {
+      destination: '/',
+      permanent: false,
+    },
+  };
+
+  return {
+    props: {},
+  };
+};

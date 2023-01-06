@@ -1,5 +1,6 @@
 import {
   Button,
+  Center,
   Divider,
   Flex,
   Heading,
@@ -7,7 +8,9 @@ import {
   Link as ChakraLink,
   Text,
 } from '@chakra-ui/react';
+import { GetServerSideProps } from 'next';
 import Link from 'next/link';
+import { parseCookies } from 'nookies';
 import { useContext } from 'react';
 import { Divide } from 'react-feather';
 import { useForm } from 'react-hook-form';
@@ -28,27 +31,28 @@ export default function SignIn() {
     await signIn(data);
   }
   return (
-    <Flex
-      w="100%"
-      h="90vh"
-      maxWidth={[428, 580]}
-      m="auto"
-      flexDir="column"
-      align="center"
-      justify="center"
-      px="4"
-    >
-      <form onSubmit={handleSubmit(signInSubmit)}>
+    <Center>
+      <Flex
+        w="100vw"
+        h="100vh"
+        flexDir="column"
+        align="center"
+        justify="center"
+        mx="auto"
+      >
         <Flex
-          w="100%"
           flexDir="column"
-          p="2"
           align="center"
           justify="center"
           gap="4"
+          w="100vw"
+          as="form"
+          onSubmit={handleSubmit(signInSubmit)}
         >
-          <Heading fontSize={48}>ENTRAR</Heading>
-          <ChakraLink mt="10" w="100%" _hover={{ textDecoration: 'none' }}>
+          <Heading fontSize={48} pb="15" pt="10">
+            ENTRAR
+          </Heading>
+          {/* <ChakraLink mt="10" w="100%" _hover={{ textDecoration: 'none' }}>
             <Button w="100%" h={20} gap="10">
               <Image src={LogoGmail} />
               <Text>Entrar com conta google</Text>
@@ -59,56 +63,81 @@ export default function SignIn() {
             <Divider h="0.4" bg="black" />
             <Text>Ou</Text>
             <Divider h="0.4" bg="black" />
-          </Flex>
-          <InputForm
-            {...register('email')}
-            label="Email"
-            name="email"
-            placeholder="Digite o seu email"
-            w={[270, 456]}
-            _placeholder={{ fontSize: 16 }}
-          />
-          <InputForm
-            {...register('password')}
-            label="Senha"
-            name="password"
-            type="password"
-            w={[270, 456]}
-            placeholder="Digite a sua senha"
-            _placeholder={{ fontSize: 16 }}
-          />
+          </Flex> */}
+          <Flex
+            flexDir="column"
+            gap="4"
+            justify="center"
+            align="center"
+            maxWidth={[300, 556]}
+          >
+            <InputForm
+              {...register('email')}
+              label="Email"
+              name="email"
+              placeholder="Digite o seu email"
+              w={[258, 456]}
+              _placeholder={{ fontSize: 16 }}
+            />
+            <InputForm
+              {...register('password')}
+              label="Senha"
+              name="password"
+              type="password"
+              w={[258, 456]}
+              placeholder="Digite a sua senha"
+              _placeholder={{ fontSize: 16 }}
+            />
 
-          <Flex justify="space-between" w="100%" gap="10" mt="6">
-            <Button
-              bg="black.900"
-              w={[200, 300]}
-              h={[14, 84]}
-              borderRadius="4"
-              color="white"
-              fontSize={[16, 20]}
-              type="submit"
-            >
-              Entrar
-            </Button>
-
-            <ChakraLink
-              as={Link}
-              href="/signUp"
-              _hover={{ textDecoration: 'none' }}
-            >
+            <Flex justify="space-between" maxWidth={[300, 556]} gap="10" mt="6">
               <Button
-                w={[128, 188]}
-                variant="outline"
+                bg="black.900"
+                w={[200, 300]}
                 h={[14, 84]}
                 borderRadius="4"
+                color="white"
                 fontSize={[16, 20]}
+                type="submit"
               >
-                Criar conta
+                Entrar
               </Button>
-            </ChakraLink>
+
+              <ChakraLink
+                as={Link}
+                href="/signUp"
+                _hover={{ textDecoration: 'none' }}
+              >
+                <Button
+                  w={[128, 188]}
+                  variant="outline"
+                  h={[14, 84]}
+                  borderRadius="4"
+                  fontSize={[16, 20]}
+                >
+                  Criar conta
+                </Button>
+              </ChakraLink>
+            </Flex>
           </Flex>
         </Flex>
-      </form>
-    </Flex>
+      </Flex>
+    </Center>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { ['dayone.token']: token } = parseCookies(ctx);
+
+  if (token) {
+    return {
+      redirect: {
+        destination: '/mydaynotes',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};

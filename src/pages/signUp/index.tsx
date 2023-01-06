@@ -7,7 +7,9 @@ import {
   Link as ChakraLink,
   Text,
 } from '@chakra-ui/react';
+import { GetServerSideProps } from 'next';
 import Link from 'next/link';
+import { parseCookies } from 'nookies';
 import { useContext } from 'react';
 import { Divide } from 'react-feather';
 import { useForm } from 'react-hook-form';
@@ -53,8 +55,10 @@ export default function SignUp() {
         as="form"
         onSubmit={handleSubmit(signUpSubmit)}
       >
-        <Heading fontSize={48}>CRIAR CONTA</Heading>
-        <ChakraLink mt="10" w="100%" _hover={{ textDecoration: 'none' }}>
+        <Heading fontSize={48} pb="15" pt="20">
+          CRIAR CONTA
+        </Heading>
+        {/* <ChakraLink mt="10" w="100%" _hover={{ textDecoration: 'none' }}>
           <Button w="100%" h={20} gap="10">
             <Image src={LogoGmail} />
             <Text>Criar com conta google</Text>
@@ -64,7 +68,7 @@ export default function SignUp() {
           <Divider h="0.4" bg="black" />
           <Text>Ou</Text>
           <Divider h="0.4" bg="black" />
-        </Flex>
+        </Flex> */}
         <InputForm
           {...register('name')}
           label="Nome"
@@ -138,3 +142,20 @@ export default function SignUp() {
     </Flex>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { ['dayone.token']: token } = parseCookies(ctx);
+
+  if (token) {
+    return {
+      redirect: {
+        destination: '/mydaynotes',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};

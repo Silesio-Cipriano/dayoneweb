@@ -52,7 +52,7 @@ export function Header({ variant = 'normal' }: HeaderProps) {
         </ChakraUILink>
 
         <Flex justify="space-between" gap="2" alignItems="center">
-          <Button
+          {/* <Button
             variant="solid"
             colorScheme="none"
             onClick={() => console.log('Hi')}
@@ -63,7 +63,7 @@ export function Header({ variant = 'normal' }: HeaderProps) {
               strokeWidth="1"
               color="black.900"
             />
-          </Button>
+          </Button> */}
           <Popover placement="bottom-end">
             <PopoverTrigger>
               <Button padding="0" w="auto">

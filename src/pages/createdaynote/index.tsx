@@ -32,6 +32,7 @@ import { CreateNote } from '../../utils/types';
 import { newNoteRequest } from '../../services/notes';
 import Router from 'next/router';
 import { parseCookies } from 'nookies';
+import { api } from '../../services/api';
 
 interface IEmojiProps {
   id: string;
@@ -178,8 +179,8 @@ export default function CreateDayNote({
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const apiClient = getAPIClient();
-  const response = await apiClient.get('/note/reaction_emoji');
+  // const apiClient = getAPIClient();
+  const response = await api.get('/note/reaction_emoji');
   const emojis: IEmojiProps[] = response.data;
 
   // const { ['dayone.token']: token } = parseCookies(ctx);

@@ -15,11 +15,9 @@ import { parseCookies } from 'nookies';
 import { useState } from 'react';
 import { MyDayCard } from '../../components/DayCards/MyDayCard';
 import { Header } from '../../components/Header';
-import { ModalDeleteNote } from '../../components/modalDeleteNote/ModalDeleteNote';
 import { TitleArea } from '../../components/TitleArea';
 import { getAPIClient } from '../../services/axios';
 import { deleteNoteRequest } from '../../services/notes';
-import { dataArray } from '../../utils/data';
 import { NoteData } from '../../utils/types';
 
 export default function MyNotes({ notes }: any) {

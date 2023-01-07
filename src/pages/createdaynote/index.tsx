@@ -179,20 +179,20 @@ export default function CreateDayNote({
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  // const apiClient = getAPIClient();
+  const apiClient = getAPIClient();
   const response = await api.get('/note/reaction_emoji');
   const emojis: IEmojiProps[] = response.data;
 
-  // const { ['dayone.token']: token } = parseCookies(ctx);
+  const { ['dayone.token']: token } = parseCookies(ctx);
 
-  // if (!token) {
-  //   return {
-  //     redirect: {
-  //       destination: '/signIn',
-  //       permanent: false,
-  //     },
-  //   };
-  // }
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/signIn',
+        permanent: false,
+      },
+    };
+  }
 
   return {
     props: {

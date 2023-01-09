@@ -72,18 +72,17 @@ export default function MyNotes({ notes }: any) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  // const apiClient = getAPIClient();
   const apiClient = getAPIClient(ctx);
-  // const { ['dayone.token']: token } = parseCookies(ctx);
+  const { ['dayone.token']: token } = parseCookies(ctx);
 
-  // if (!token) {
-  //   return {
-  //     redirect: {
-  //       destination: '/signIn',
-  //       permanent: false,
-  //     },
-  //   };
-  // }
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/signIn',
+        permanent: false,
+      },
+    };
+  }
 
   const response = await apiClient.get('/note/user');
   const notes: NoteData[] = response.data;

@@ -72,7 +72,11 @@ export default function MyNotes({ notes }: any) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
+<<<<<<< HEAD
   const apiClient = getAPIClient();
+=======
+  const apiClient = getAPIClient(ctx);
+>>>>>>> 2e8fc81 (fix vercel bug)
   // const apiClient = getAPIClient(ctx);
   // const { ['dayone.token']: token } = parseCookies(ctx);
 

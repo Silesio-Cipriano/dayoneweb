@@ -1,15 +1,4 @@
-import {
-  Box,
-  Button,
-  Center,
-  Flex,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalHeader,
-  ModalOverlay,
-  Text,
-} from '@chakra-ui/react';
+import { Center, Flex, Text } from '@chakra-ui/react';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { parseCookies } from 'nookies';
 import { useState } from 'react';
@@ -20,7 +9,9 @@ import { getAPIClient } from '../../services/axios';
 import { deleteNoteRequest } from '../../services/notes';
 import { NoteData } from '../../utils/types';
 
-export default function MyNotes({ notes }: any) {
+export default function MyDayNotes({
+  notes,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [data, setData] = useState<NoteData[]>([...notes]);
   const dataLength = data.length - 1;
 
@@ -86,6 +77,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const response = await apiClient.get('/note/user');
   const notes: NoteData[] = response.data;
+
+  console.log('Notas MyDayNotes: ', notes);
   return {
     props: {
       notes,

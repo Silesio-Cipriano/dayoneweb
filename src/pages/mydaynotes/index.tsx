@@ -63,7 +63,8 @@ export default function MyDayNotes() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  // const apiClient = getAPIClient(ctx);
+  const apiClient = getAPIClient(ctx);
+  let notes: NoteData[] = [];
   const { ['dayone.token']: token } = parseCookies(ctx);
 
   if (!token) {
@@ -75,6 +76,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
 
+  const response = await apiClient.get('/note/user');
+  notes = response.data;
   return {
     props: {
       // notes,

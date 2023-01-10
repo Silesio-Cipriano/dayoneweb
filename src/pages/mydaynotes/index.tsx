@@ -62,45 +62,22 @@ export default function MyDayNotes() {
   );
 }
 
-<<<<<<< HEAD
-// export const getServerSideProps: GetServerSideProps = async (ctx) => {
-// const apiClient = getAPIClient(ctx);
-// const { ['dayone.token']: token } = parseCookies(ctx);
-=======
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   // const apiClient = getAPIClient(ctx);
   const { ['dayone.token']: token } = parseCookies(ctx);
->>>>>>> 0b8eec9 (fix vercel 02)
 
-// if (!token) {
-//   return {
-//     redirect: {
-//       destination: '/signIn',
-//       permanent: false,
-//     },
-//   };
-// }
+  // if (!token) {
+  //   return {
+  //     redirect: {
+  //       destination: '/signIn',
+  //       permanent: false,
+  //     },
+  //   };
+  // }
 
-<<<<<<< HEAD
-// const response = await apiClient.get('/note/user');
-// const notes: NoteData[] = response.data;
-
-// console.log('Notas MyDayNotes: ', not  es);
-// return {
-// props: {
-// notes,
-// },
-// };
-// };
-=======
-  // const response = await apiClient.get('/note/user');
-  // const notes: NoteData[] = response.data;
-
-  // console.log('Notas MyDayNotes: ', notes);
   return {
     props: {
       // notes,
     },
   };
 };
->>>>>>> 0b8eec9 (fix vercel 02)

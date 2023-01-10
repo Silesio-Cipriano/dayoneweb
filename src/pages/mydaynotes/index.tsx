@@ -66,14 +66,14 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   // const apiClient = getAPIClient(ctx);
   const { ['dayone.token']: token } = parseCookies(ctx);
 
-  // if (!token) {
-  //   return {
-  //     redirect: {
-  //       destination: '/signIn',
-  //       permanent: false,
-  //     },
-  //   };
-  // }
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/signIn',
+        permanent: false,
+      },
+    };
+  }
 
   return {
     props: {

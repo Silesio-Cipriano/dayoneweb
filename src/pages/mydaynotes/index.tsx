@@ -7,12 +7,12 @@ import { Header } from '../../components/Header';
 import { TitleArea } from '../../components/TitleArea';
 import { getAPIClient } from '../../services/axios';
 import { deleteNoteRequest } from '../../services/notes';
+import { dataArray } from '../../utils/data';
 import { NoteData } from '../../utils/types';
 
-export default function MyDayNotes({
-  notes,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const [data, setData] = useState<NoteData[]>([...notes]);
+export default function MyDayNotes() {
+  const dat = dataArray;
+  const [data, setData] = useState<NoteData[]>([...dat]);
   const dataLength = data.length - 1;
 
   async function deleteNote(id: string) {
@@ -62,26 +62,26 @@ export default function MyDayNotes({
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const apiClient = getAPIClient(ctx);
-  const { ['dayone.token']: token } = parseCookies(ctx);
+// export const getServerSideProps: GetServerSideProps = async (ctx) => {
+// const apiClient = getAPIClient(ctx);
+// const { ['dayone.token']: token } = parseCookies(ctx);
 
-  if (!token) {
-    return {
-      redirect: {
-        destination: '/signIn',
-        permanent: false,
-      },
-    };
-  }
+// if (!token) {
+//   return {
+//     redirect: {
+//       destination: '/signIn',
+//       permanent: false,
+//     },
+//   };
+// }
 
-  const response = await apiClient.get('/note/user');
-  const notes: NoteData[] = response.data;
+// const response = await apiClient.get('/note/user');
+// const notes: NoteData[] = response.data;
 
-  console.log('Notas MyDayNotes: ', notes);
-  return {
-    props: {
-      notes,
-    },
-  };
-};
+// console.log('Notas MyDayNotes: ', not  es);
+// return {
+// props: {
+// notes,
+// },
+// };
+// };

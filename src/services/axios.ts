@@ -6,7 +6,9 @@ export function getAPIClient(context?: any) {
 
   console.log('Ver:', process.env.BASEURL);
   const api = axios.create({
-    baseURL: process.env.BASEURL,
+    baseURL: process.env.BASEURL
+      ? process.env.BASEURL
+      : 'https://dayone.onrender.com',
   });
 
   if (token) {

@@ -61,9 +61,13 @@ export default function CreateDayNote({
 
   async function submitNewNote(data: CreateNote) {
     data.reaction_EmojiId = emoji.id;
-    await newNoteRequest(data).then(() => {
-      Router.push('/mydaynotes');
-    });
+    await newNoteRequest(data)
+      .then(() => {
+        Router.push('/mydaynotes');
+      })
+      .catch((e) => {
+        console.log('Error: ', e);
+      });
   }
 
   return (

@@ -4,8 +4,9 @@ import { parseCookies } from 'nookies';
 export function getAPIClient(context?: any) {
   const { 'dayone.token': token } = parseCookies(context);
 
+  console.log('Ver:', process.env.BASEURL);
   const api = axios.create({
-    baseURL: 'http://localhost:3333',
+    baseURL: process.env.BASEURL,
   });
 
   if (token) {

@@ -10,9 +10,10 @@ import { deleteNoteRequest } from '../../services/notes';
 import { dataArray } from '../../utils/data';
 import { NoteData } from '../../utils/types';
 
-export default function MyDayNotes() {
-  const dat = dataArray;
-  const [data, setData] = useState<NoteData[]>([...dat]);
+export default function MyDayNotes({
+  notes,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const [data, setData] = useState<NoteData[]>([...notes]);
   const dataLength = data.length - 1;
 
   async function deleteNote(id: string) {
@@ -64,23 +65,22 @@ export default function MyDayNotes() {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const apiClient = getAPIClient(ctx);
-  let notes: NoteData[] = [];
   const { ['dayone.token']: token } = parseCookies(ctx);
 
   if (!token) {
     return {
       redirect: {
-        destination: '/signIn',
+        destination: '/signUp',
         permanent: false,
       },
     };
   }
 
   const response = await apiClient.get('/note/user');
-  notes = response.data;
+  const notes: NoteData[] = response.data;
   return {
     props: {
-      // notes,
+      notes,
     },
   };
 };

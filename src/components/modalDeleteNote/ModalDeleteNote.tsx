@@ -16,6 +16,7 @@ interface IModalProps {
   changeStatusModal: () => void;
   submitModal: (id: string) => void;
   idNote: string;
+  day: number;
 }
 
 export function ModalDeleteNote({
@@ -23,6 +24,7 @@ export function ModalDeleteNote({
   changeStatusModal,
   submitModal,
   idNote,
+  day,
 }: IModalProps) {
   function changeModalState() {
     changeStatusModal();
@@ -31,12 +33,12 @@ export function ModalDeleteNote({
   return (
     <Modal
       isOpen={modalDeleteNote}
-      size={['sm', '2xl']}
+      size={['sm', 'xl']}
       onClose={() => {}}
       isCentered
     >
       <ModalOverlay backgroundColor={'rgba(0,0,0,0.4)'} />
-      <ModalContent borderRadius="6" py="7" shadow={0}>
+      <ModalContent borderRadius="6" py="7" pb={10} mx="20" shadow={0}>
         <ModalHeader>
           <Text textAlign="center" fontSize={['28', '40']}>
             Deletar
@@ -48,42 +50,37 @@ export function ModalDeleteNote({
           ></Box>
         </ModalHeader>
         <ModalBody m="auto" pb="4" bg="white" borderRadius="6">
-          <Text textAlign="center" fontSize={['17', '20']} px={['10', '16']}>
-            Ao deletar não terá como recuperar a nota do dia 29, você acabara
+          <Text textAlign="center" fontSize={['17', '20']} px={['8', '16']}>
+            Ao deletar não terá como recuperar a nota do dia {day}, você acabara
             perdendo um dia!
           </Text>
-          <Text
-            textAlign="center"
-            mt="4"
-            fontSize={['17', '20']}
-            textColor="red.900"
-          >
-            Deseja continuar?
-          </Text>
+
           <Flex justify="space-between" mt="4" mx={['2', '10']}>
             <Button
-              fontSize={['16', '20']}
+              fontSize={['16', '', '20']}
               variant="unstyled"
-              w={['24', '32']}
-              borderRadius={0}
-              backgroundColor="blue.400"
-              _hover={{ backgroundColor: 'black.900', color: 'white' }}
+              w={['24', '24', '32', '44']}
+              borderRadius={3}
+              h={12}
+              color="white"
+              backgroundColor="red.900"
+              _hover={{ backgroundColor: 'red.100', color: 'white' }}
               onClick={() => submitModal(idNote)}
             >
-              Sim
+              Deletar
             </Button>
             <Button
-              fontSize={['16', '20']}
+              fontSize={['16', '', '20']}
               variant="unstyled"
-              w={['24', '32']}
-              borderBottomWidth={2}
-              borderColor="red.900"
-              borderRadius={0}
-              backgroundColor="red.100"
-              _hover={{ backgroundColor: 'red.900', color: 'white' }}
+              w={['24', '24', '32', '44']}
+              h={12}
+              borderRadius={3}
+              color="white"
+              backgroundColor="black.900"
+              _hover={{ backgroundColor: 'black.100', color: 'white' }}
               onClick={changeModalState}
             >
-              Não
+              Cancelar
             </Button>
           </Flex>
         </ModalBody>

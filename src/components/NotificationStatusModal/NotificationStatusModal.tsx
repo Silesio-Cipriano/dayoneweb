@@ -52,18 +52,19 @@ export function NotificationStatusModal({
   }
 
   return (
-    <Modal isOpen={open} size={'xl'} onClose={() => {}}>
+    <Modal isOpen={open} size={['sm', 'xl']} onClose={close}>
       <ModalOverlay />
       <ModalContent
+        mx={['6', '24']}
         bgColor={colorPrimary}
         borderWidth={1}
         borderColor={colorSecondary}
       >
         <ModalHeader pb="0">
-          <Flex align={'center'} justify="space-between">
+          <Flex align={['center']} justify="space-between">
             <Flex align={'center'} gap="2">
               <Icon as={iconAlert} color={colorSecondary} />
-              <Text color={colorSecondary} fontSize={20}>
+              <Text color={colorSecondary} fontSize={[14, 20]}>
                 {title}
               </Text>
             </Flex>
@@ -79,15 +80,15 @@ export function NotificationStatusModal({
                 as={X}
                 color={colorSecondary}
                 _groupHover={{ color: 'white' }}
-                fontSize="20"
+                fontSize={['14', '20']}
               />
             </Button>
           </Flex>
         </ModalHeader>
         <ModalBody pb="6" mt="0" pt="0">
           <Flex pl="7" flexDir="column" gap="1">
-            <Text fontSize={20}>{description}</Text>
-            <Text fontSize={20} color="#9D9D9D">
+            <Text fontSize={['14', '20']}>{description}</Text>
+            <Text fontSize={['14', '20']} color="#9D9D9D">
               {`${new Date().toLocaleTimeString()}`}
             </Text>
           </Flex>

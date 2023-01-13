@@ -11,7 +11,7 @@ import {
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Link from 'next/link';
 import { parseCookies } from 'nookies';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Divide } from 'react-feather';
 import { useForm } from 'react-hook-form';
 import LogoGmail from '../../assets/logoGmail.svg';
@@ -33,6 +33,7 @@ export default function SignIn({
   const [modalNotification, setModalNotification] = useState<ModalNotification>(
     {} as ModalNotification
   );
+  const [state, setState] = useState(active);
   const { register, handleSubmit } = useForm<ISignInData>();
 
   function changeStatusSucessModal() {
@@ -45,7 +46,7 @@ export default function SignIn({
       .then(() => {
         setModalNotification({
           title: 'Sucesso',
-          description: 'Seja bem-vindo de volta ao Day One!',
+          description: 'Tenha um bom dia e aproveite o Day One!',
           variant: 'Sucess',
         });
         changeStatusSucessModal();
@@ -59,6 +60,18 @@ export default function SignIn({
         changeStatusSucessModal();
       });
   }
+
+  useEffect(() => {
+    if (active) {
+      setModalNotification({
+        title: 'Sucesso',
+        description: 'Sua conta foi validada, ja pode entrar no Day One!',
+        variant: 'Sucess',
+      });
+      setState(false);
+      changeStatusSucessModal();
+    }
+  }, []);
   return (
     <Center>
       <NotificationStatusModal

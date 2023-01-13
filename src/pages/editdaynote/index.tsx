@@ -84,7 +84,7 @@ export default function EditDayNote({ emojis, note }: any) {
           maxWidth={1080}
           mx="auto"
           flexDir="column"
-          gap={['10', '6']}
+          gap={['4', '6']}
         >
           <Flex justify="space-between" align="center" mt="20">
             <Heading>Editar</Heading>
@@ -106,23 +106,37 @@ export default function EditDayNote({ emojis, note }: any) {
           <Textarea
             {...register('title')}
             name="title"
+            mt={[4, 0]}
             fontSize={[16, 20]}
             placeholder="Frase do dia"
             variant="filled"
             resize="none"
+            required
             bg="blue.400"
           />
-          <Flex gap="16" w="100%" justify="space-between">
+          <Flex
+            gap={['2', '16']}
+            w="100%"
+            flexDir={['row']}
+            justify="space-between"
+            align="end"
+          >
             <Input
               {...register('authorOfTitle')}
               name="authorOfTitle"
-              fontSize={[16, 20]}
+              fontSize={[14, 20]}
               placeholder="Autor da frase"
               variant="filled"
+              required
               h={16}
               bg="blue.400"
             />
-            <Button bg="blue.400" h={16} w={284} onClick={modalVisibleStatus}>
+            <Button
+              bg="blue.400"
+              h={16}
+              w={[28, 284]}
+              onClick={modalVisibleStatus}
+            >
               <Image src={emoji.url} w={'12'} />
             </Button>
           </Flex>
@@ -130,6 +144,7 @@ export default function EditDayNote({ emojis, note }: any) {
             {...register('description')}
             name="description"
             fontSize={[16, 20]}
+            required
             placeholder="Escrever"
             variant="filled"
             resize="none"

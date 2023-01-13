@@ -1,4 +1,5 @@
 import {
+  border,
   Box,
   Button,
   Center,
@@ -91,11 +92,18 @@ export function Actions({
             justify="space-between"
           >
             <Button variant="unstyled" w="78" h="78" onClick={deleteModal}>
-              <Flex border={['1px', '2px']} borderRadius="full" p={[2, 4]}>
+              <Flex
+                border={['1px', '2px']}
+                borderRadius="full"
+                p={[2, 4]}
+                data-group
+                _hover={{ borderColor: 'red.900' }}
+              >
                 <Icon
                   as={X}
                   boxSize={[6, 8]}
                   strokeWidth="1"
+                  _groupHover={{ color: 'red.900' }}
                   color="black.900"
                 />
               </Flex>

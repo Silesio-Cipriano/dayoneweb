@@ -215,11 +215,6 @@ export default function Home() {
 
           <DayCardFeed data={data} />
         </Flex>
-        <Center my="20">
-          <Text fontSize={[16, 24]} fontFamily="Lato" fontWeight="medium">
-            Desenvolvido por Silésio L. Cipriano
-          </Text>
-        </Center>
       </Flex>
     </>
   );

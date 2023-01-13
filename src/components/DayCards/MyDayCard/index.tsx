@@ -33,6 +33,7 @@ export function MyDayCard({ data, index, deleteNote }: DayCardProps) {
         modalDeleteNote={modalDeleteNote}
         submitModal={modalSubmit}
         idNote={data.note.id}
+        day={index}
       />
       <Flex>
         <Flex flex={1} flexDir="column">

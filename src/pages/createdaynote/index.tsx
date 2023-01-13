@@ -18,11 +18,12 @@ import { useState } from 'react';
 import { getAPIClient } from '../../services/axios';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useForm } from 'react-hook-form';
-import { CreateNote } from '../../utils/types';
+import { CreateNote, ModalNotification } from '../../utils/types';
 import { newNoteRequest } from '../../services/notes';
 import Router from 'next/router';
 import { parseCookies } from 'nookies';
 import { api } from '../../services/api';
+import { NotificationStatusModal } from '../../components/NotificationStatusModal/NotificationStatusModal';
 
 interface IEmojiProps {
   id: string;
@@ -38,6 +39,15 @@ export default function CreateDayNote({
   const sizes = ['xs', 'sm', 'md', 'lg', 'xl', 'full'];
   const sizeEmoji = [12, 16, 24];
 
+  const [modalNotificationStatus, setModalNotificationStatus] = useState(false);
+  const [modalNotification, setModalNotification] = useState<ModalNotification>(
+    {} as ModalNotification
+  );
+
+  function changeStatusSucessModal() {
+    setModalNotificationStatus(!modalNotificationStatus);
+  }
+
   const { register, handleSubmit } = useForm<CreateNote>();
 
   function modalVisibleStatus() {
@@ -51,19 +61,31 @@ export default function CreateDayNote({
 
   async function submitNewNote(data: CreateNote) {
     data.reaction_EmojiId = emoji.id;
-    console.log('Dados para criar nota: ', data);
     await newNoteRequest(data)
       .then(() => {
         Router.push('/mydaynotes');
       })
       .catch((e) => {
-        console.log('Error (Ao criar nota): ', e);
+        setModalNotification({
+          title: 'Falha',
+          description:
+            'Não foi possivel salvar a nota, esse serviço esta inativo no momento',
+          variant: 'Error',
+        });
+        changeStatusSucessModal();
       });
   }
 
   return (
     <>
       <Header variant="logged" />
+      <NotificationStatusModal
+        title={modalNotification.title}
+        description={modalNotification.description}
+        variant={modalNotification.variant}
+        open={modalNotificationStatus}
+        close={changeStatusSucessModal}
+      />
       <Flex
         w="100%"
         maxWidth={1360}
@@ -78,7 +100,7 @@ export default function CreateDayNote({
           maxWidth={1080}
           mx="auto"
           flexDir="column"
-          gap={['10', '6']}
+          gap={['4', '6']}
         >
           <Flex justify="space-between" align="center" mt="20">
             <Heading>Nova</Heading>
@@ -100,23 +122,37 @@ export default function CreateDayNote({
           <Textarea
             {...register('title')}
             name="title"
+            mt={[4, 0]}
             fontSize={[16, 20]}
             placeholder="Frase do dia"
             variant="filled"
             resize="none"
+            required
             bg="blue.400"
           />
-          <Flex gap="16" w="100%" justify="space-between">
+          <Flex
+            gap={['2', '16']}
+            w="100%"
+            flexDir={['row']}
+            justify="space-between"
+            align="end"
+          >
             <Input
               {...register('authorOfTitle')}
               name="authorOfTitle"
-              fontSize={[16, 20]}
+              fontSize={[14, 20]}
               placeholder="Autor da frase"
               variant="filled"
+              required
               h={16}
               bg="blue.400"
             />
-            <Button bg="blue.400" h={16} w={284} onClick={modalVisibleStatus}>
+            <Button
+              bg="blue.400"
+              h={16}
+              w={[28, 284]}
+              onClick={modalVisibleStatus}
+            >
               <Image src={emoji.url} w={'12'} />
             </Button>
           </Flex>
@@ -124,6 +160,7 @@ export default function CreateDayNote({
             {...register('description')}
             name="description"
             fontSize={[16, 20]}
+            required
             placeholder="Escrever"
             variant="filled"
             resize="none"

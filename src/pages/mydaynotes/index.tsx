@@ -1,4 +1,4 @@
-import { Center, Flex, Text } from '@chakra-ui/react';
+import { Center, Flex, Icon, Image, Text } from '@chakra-ui/react';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { parseCookies } from 'nookies';
 import { useState } from 'react';
@@ -41,22 +41,34 @@ export default function MyDayNotes({
           flexDir="column"
           gap={['10', '20']}
         >
-          {data.map((note, index) => {
-            return (
-              <MyDayCard
-                key={index}
-                data={note}
-                index={dataLength - index + 1}
-                deleteNote={deleteNote}
+          {data.length > 0 ? (
+            data.map((note, index) => {
+              return (
+                <MyDayCard
+                  key={index}
+                  data={note}
+                  index={dataLength - index + 1}
+                  deleteNote={deleteNote}
+                />
+              );
+            })
+          ) : (
+            <Flex flexDir="column" align="center">
+              <Image
+                w={['224px', '324px']}
+                src="https://res.cloudinary.com/dqodxamgl/image/upload/v1673598375/DayOne/Emoji/crying-cat-face_q5b9nr.svg"
               />
-            );
-          })}
+              <Text
+                fontFamily="Lato"
+                fontWeight="light"
+                color="blackAlpha.600"
+                fontSize="28"
+              >
+                “Sem day notes”
+              </Text>
+            </Flex>
+          )}
         </Flex>
-        <Center my={['8', '20']}>
-          <Text fontSize={[16, 24]} fontFamily="Lato" fontWeight="medium">
-            Desenvolvido por Silésio L. Cipriano
-          </Text>
-        </Center>
       </Flex>
     </>
   );

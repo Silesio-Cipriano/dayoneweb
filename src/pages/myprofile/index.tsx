@@ -35,15 +35,9 @@ export default function MyProfile() {
   const [modalNotification, setModalNotification] = useState<ModalNotification>(
     {} as ModalNotification
   );
-  const [sucessModal, setSucessModal] = useState(false);
-  const [errorModal, setErrorModal] = useState(false);
 
   function changeStatusSucessModal() {
     setModalNotificationStatus(!modalNotificationStatus);
-  }
-
-  function changeStatusErrorModal() {
-    setErrorModal(!errorModal);
   }
 
   const { user } = useContext(AuthContext);
@@ -99,7 +93,6 @@ export default function MyProfile() {
             });
         } else {
           changeStatusSucessModal();
-          setTimeout(changeStatusSucessModal, 5000);
         }
         setTimeout(router.reload, 5000);
       });

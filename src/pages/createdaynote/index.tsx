@@ -1,12 +1,9 @@
 import {
   Button,
-  Center,
   Flex,
   Grid,
   Heading,
-  Icon,
   Image,
-  Img,
   Input,
   Modal,
   ModalBody,
@@ -14,19 +11,12 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
-  SimpleGrid,
-  Text,
   Textarea,
 } from '@chakra-ui/react';
 import { Header } from '../../components/Header';
-import { ReactNode, useState } from 'react';
+import { useState } from 'react';
 import { getAPIClient } from '../../services/axios';
-import {
-  GetServerSideProps,
-  GetStaticProps,
-  InferGetServerSidePropsType,
-  InferGetStaticPropsType,
-} from 'next';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useForm } from 'react-hook-form';
 import { CreateNote } from '../../utils/types';
 import { newNoteRequest } from '../../services/notes';

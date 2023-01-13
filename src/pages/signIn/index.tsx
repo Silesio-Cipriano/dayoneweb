@@ -8,30 +8,66 @@ import {
   Link as ChakraLink,
   Text,
 } from '@chakra-ui/react';
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Link from 'next/link';
 import { parseCookies } from 'nookies';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Divide } from 'react-feather';
 import { useForm } from 'react-hook-form';
 import LogoGmail from '../../assets/logoGmail.svg';
 import { InputForm } from '../../components/Form/Input';
+import { NotificationStatusModal } from '../../components/NotificationStatusModal/NotificationStatusModal';
 import { AuthContext } from '../../context/AuthContext';
+import { getAPIClient } from '../../services/axios';
+import { ModalNotification } from '../../utils/types';
 
 type ISignInData = {
   email: string;
   password: string;
 };
-export default function SignIn() {
+
+export default function SignIn({
+  active,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const [modalNotificationStatus, setModalNotificationStatus] = useState(false);
+  const [modalNotification, setModalNotification] = useState<ModalNotification>(
+    {} as ModalNotification
+  );
   const { register, handleSubmit } = useForm<ISignInData>();
 
+  function changeStatusSucessModal() {
+    setModalNotificationStatus(!modalNotificationStatus);
+  }
   const { signIn } = useContext(AuthContext);
 
   async function signInSubmit(data: ISignInData) {
-    await signIn(data);
+    await signIn(data)
+      .then(() => {
+        setModalNotification({
+          title: 'Sucesso',
+          description: 'Seja bem-vindo de volta ao Day One!',
+          variant: 'Sucess',
+        });
+        changeStatusSucessModal();
+      })
+      .catch((e) => {
+        setModalNotification({
+          title: 'Falha',
+          description: 'E-mail ou senha invalida!',
+          variant: 'Error',
+        });
+        changeStatusSucessModal();
+      });
   }
   return (
     <Center>
+      <NotificationStatusModal
+        title={modalNotification.title}
+        description={modalNotification.description}
+        variant={modalNotification.variant}
+        open={modalNotificationStatus}
+        close={changeStatusSucessModal}
+      />
       <Flex
         w="100vw"
         h="100vh"
@@ -126,7 +162,21 @@ export default function SignIn() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const apiClient = getAPIClient(ctx);
+
+  let active = false;
+  const userId = ctx.query.xns;
   const { ['dayone.token']: token } = parseCookies(ctx);
+
+  await apiClient
+    .post('/user/status', {
+      userId,
+      status: 'ACTIVE',
+    })
+    .then((response) => {
+      active = true;
+    })
+    .catch((e) => console.log('Sem utilizador para validar'));
 
   if (token) {
     return {
@@ -138,6 +188,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
 
   return {
-    props: {},
+    props: {
+      active,
+    },
   };
 };

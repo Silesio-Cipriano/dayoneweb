@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Center,
   Flex,
@@ -8,33 +7,22 @@ import {
   Image,
   Input,
   Text,
-  Link as ChakraUILink,
-  Modal,
-  ModalContent,
-  ModalOverlay,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
 } from '@chakra-ui/react';
-import { CheckCircle, Upload, UploadCloud, X } from 'react-feather';
-import { MyDayCard } from '../../components/DayCards/MyDayCard';
+import { Upload } from 'react-feather';
 import { InputForm } from '../../components/Form/Input';
 import { Header } from '../../components/Header';
-import { TitleArea } from '../../components/TitleArea';
-import { dataArray } from '../../utils/data';
 import FormData from 'form-data';
-import { ChangeEvent, useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { userAcronim } from '../../utils/userAcronim';
-import Link from 'next/link';
 import { formatDate } from '../../utils/formatData';
 import { api } from '../../services/api';
 import { useForm } from 'react-hook-form';
-import { Router, useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { NotificationStatusModal } from '../../components/NotificationStatusModal/NotificationStatusModal';
 import { GetServerSideProps } from 'next';
 import { parseCookies } from 'nookies';
-import { getAPIClient } from '../../services/axios';
+import { ModalNotification } from '../../utils/types';
 
 type User = {
   avatar: any;
@@ -43,11 +31,15 @@ type User = {
 };
 export default function MyProfile() {
   const { register, handleSubmit } = useForm<User>();
+  const [modalNotificationStatus, setModalNotificationStatus] = useState(false);
+  const [modalNotification, setModalNotification] = useState<ModalNotification>(
+    {} as ModalNotification
+  );
   const [sucessModal, setSucessModal] = useState(false);
   const [errorModal, setErrorModal] = useState(false);
 
   function changeStatusSucessModal() {
-    setSucessModal(!sucessModal);
+    setModalNotificationStatus(!modalNotificationStatus);
   }
 
   function changeStatusErrorModal() {
@@ -89,12 +81,21 @@ export default function MyProfile() {
               headers: { 'content-type': 'multipart/form-data' },
             })
             .then((response) => {
+              setModalNotification({
+                title: 'Sucesso',
+                description: 'O seu perfil foi atualizado!',
+                variant: 'Sucess',
+              });
               changeStatusSucessModal();
-              setTimeout(changeStatusSucessModal, 5000);
             })
             .catch((e) => {
-              changeStatusErrorModal();
-              setTimeout(changeStatusErrorModal, 5000);
+              setModalNotification({
+                title: 'Falha',
+                description:
+                  'Não foi possivel salvar a imagem, tente de novo ou tente outra imagem!',
+                variant: 'Error',
+              });
+              changeStatusSucessModal();
             });
         } else {
           changeStatusSucessModal();
@@ -115,18 +116,11 @@ export default function MyProfile() {
   return (
     <>
       <NotificationStatusModal
-        title="Sucesso"
-        description="Suas alteraçoes foram salvas!"
-        variant="Sucess"
-        open={sucessModal}
+        title={modalNotification.title}
+        description={modalNotification.description}
+        variant={modalNotification.variant}
+        open={modalNotificationStatus}
         close={changeStatusSucessModal}
-      />
-      <NotificationStatusModal
-        title="Falha"
-        description="Não foi possivel salvar a imagem, tente de novo ou tente outra imagem!"
-        variant="Error"
-        open={errorModal}
-        close={changeStatusErrorModal}
       />
       <Header variant="logged" />
       <Flex

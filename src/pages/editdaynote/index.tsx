@@ -1,12 +1,9 @@
 import {
   Button,
-  Center,
   Flex,
   Grid,
   Heading,
-  Icon,
   Image,
-  Img,
   Input,
   Modal,
   ModalBody,
@@ -14,23 +11,16 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
-  SimpleGrid,
-  Text,
   Textarea,
 } from '@chakra-ui/react';
 import { Header } from '../../components/Header';
-import { ReactNode, useState } from 'react';
+import { useState } from 'react';
 import { getAPIClient } from '../../services/axios';
-import {
-  GetServerSideProps,
-  GetStaticProps,
-  InferGetServerSidePropsType,
-  InferGetStaticPropsType,
-} from 'next';
+import { GetServerSideProps } from 'next';
 import { useForm } from 'react-hook-form';
 import { CreateNote, NoteData } from '../../utils/types';
-import { newNoteRequest, uploadNoteRequest } from '../../services/notes';
-import Router, { useRouter } from 'next/router';
+import { uploadNoteRequest } from '../../services/notes';
+import Router from 'next/router';
 import { parseCookies } from 'nookies';
 
 interface IEmojiProps {

@@ -1,10 +1,4 @@
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { createContext, ReactNode, useEffect, useState } from 'react';
 import { signInRequest, recoveryUserInformation } from '../services/auth';
 import { parseCookies, setCookie, destroyCookie } from 'nookies';
 import Router, { useRouter } from 'next/router';
@@ -62,7 +56,6 @@ export function AuthProvider({ children }: AuthProviderType) {
       password,
     });
 
-    console.log('Token: ', token);
     if (token) {
       setCookie(undefined, 'dayone.token', token, {
         maxAge: 60 * 60 * 1, //1 hora
@@ -70,11 +63,13 @@ export function AuthProvider({ children }: AuthProviderType) {
 
       api.defaults.headers['Authorization'] = `Bearer ${token}`;
 
-      setUser(user);
+      setTimeout(() => {
+        setUser(user);
 
-      router.push('/mydaynotes');
+        router.push('/mydaynotes');
+      }, 3000);
     } else {
-      alert('Password or email incorrect');
+      throw Error('Email ou senha invalida!');
     }
   }
 

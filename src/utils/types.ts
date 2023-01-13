@@ -27,3 +27,9 @@ export type NoteData = {
   note: Note;
   reaction_Emoji: Reaction_Emoji;
 };
+
+export type ModalNotification = {
+  title: string;
+  variant: 'Sucess' | 'Warning' | 'Error';
+  description: string;
+};

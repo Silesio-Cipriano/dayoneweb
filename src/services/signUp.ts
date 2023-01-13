@@ -22,25 +22,10 @@ export async function signUpRequest({
   birthday,
 }: ISignUp) {
   let response: IResponse = { email: null, password: null };
-  await api
-    .post('/user', {
-      name,
-      email,
-      password,
-      birthday,
-    })
-    .then(async ({ data }) => {
-      console.log(data);
-      response = {
-        email,
-        password,
-      };
-    })
-    .catch((error) => {
-      if (error.response) {
-        console.log(error.response);
-      } else if (error.request) console.log('error', error.request);
-    });
-
-  return response;
+  return await api.post('/user', {
+    name,
+    email,
+    password,
+    birthday,
+  });
 }

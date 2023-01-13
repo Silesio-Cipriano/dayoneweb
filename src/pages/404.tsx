@@ -43,7 +43,7 @@ export default function Error404() {
                 mt="10"
                 textAlign={['center', 'center', 'start']}
               >
-                A pagina nao foi encontrada
+                A pagina não foi encontrada
               </Text>
               <Text
                 fontSize={['100', '', '180px']}

@@ -31,9 +31,7 @@ export default function MyDayNotes({
       .then(() => {
         const newData = data.filter((data) => data.note.id !== id);
         setData([...newData]);
-        setTimeout(() => {
-          setLoading(false);
-        }, 1500);
+        setLoading(false);
       })
       .catch((e) => {
         setModalNotification({

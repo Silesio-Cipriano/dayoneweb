@@ -11,7 +11,7 @@ import { Top } from '../Top';
 interface DayCardProps {
   data: NoteData;
   index: number;
-  deleteNote: (id: string) => void;
+  deleteNote: (id: string) => Promise<void>;
   loading: boolean;
 }
 
@@ -21,9 +21,10 @@ export function MyDayCard({ data, index, deleteNote, loading }: DayCardProps) {
     setModalDeleteNote(!modalDeleteNote);
   }
 
-  function modalSubmit(id: string) {
-    deleteNote(id);
-    changeStatusModal();
+  async function modalSubmit(id: string) {
+    await deleteNote(id).then(() => {
+      changeStatusModal();
+    });
   }
 
   return (

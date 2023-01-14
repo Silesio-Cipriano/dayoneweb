@@ -53,8 +53,9 @@ export default function Error404() {
               </Text>
               <ChakraUILink
                 as={Link}
-                href="/dsa"
+                href="/"
                 textAlign={['center', 'start']}
+                _hover={{ textDecor: 'none' }}
               >
                 <Button w="300px" h="12" bgColor="black.900" color="white">
                   Pagina principal

@@ -24,8 +24,10 @@ export default function Home() {
           backgroundRepeat="no-repeat"
           w={['100vw', '10vw', '97vw']}
           h={['90vh', '80vh']}
-          pos={'fixed'}
+          visibility={['hidden', 'visible']}
+          pos={'absolute'}
           top="100"
+          zIndex={-1}
           bottom="100"
         ></Box>
 

@@ -36,7 +36,7 @@ export function Header({ variant = 'normal' }: HeaderProps) {
         h="20"
         px="4"
         mx="auto"
-        mt="10"
+        mt={['2', '10']}
         justify="space-between"
         align="center"
       >
@@ -146,7 +146,7 @@ export function Header({ variant = 'normal' }: HeaderProps) {
       maxWidth={1360}
       h="20"
       px="4"
-      mt="10"
+      mt={['2', '10']}
       mx="auto"
       justify="space-between"
       align="center"

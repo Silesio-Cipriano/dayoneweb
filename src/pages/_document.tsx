@@ -1,5 +1,4 @@
-import Document, { Html, Main, NextScript } from 'next/document';
-import Head from 'next/head';
+import Document, { Html, Main, Head, NextScript } from 'next/document';
 export default class MyDocument extends Document {
   render() {
     return (
@@ -36,7 +35,6 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Nunito:wght@400;500;600;700&display=swap"
             rel="stylesheet"
           />
-          <title>Day one - Memento</title>
         </Head>
         <body>
           <Main />

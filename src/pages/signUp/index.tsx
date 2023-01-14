@@ -1,4 +1,11 @@
-import { Button, Flex, Heading, Link as ChakraLink } from '@chakra-ui/react';
+import {
+  Button,
+  Flex,
+  Heading,
+  Link as ChakraLink,
+  Spinner,
+  Text,
+} from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 import { parseCookies } from 'nookies';
@@ -21,7 +28,8 @@ export default function SignUp() {
   const [modalNotification, setModalNotification] = useState<ModalNotification>(
     {} as ModalNotification
   );
-  const { signIn } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
+
   const { register, handleSubmit } = useForm<ISignUp>();
 
   function changeStatusSucessModal() {
@@ -29,6 +37,7 @@ export default function SignUp() {
   }
 
   async function signUpSubmit(data: ISignUp) {
+    setLoading(true);
     const age =
       new Date().getFullYear() - new Date(data.birthday).getFullYear();
 
@@ -41,7 +50,9 @@ export default function SignUp() {
               'Verifique a sua caixa no email, para validar a conta na Day One!',
             variant: 'Sucess',
           });
+
           changeStatusSucessModal();
+          setLoading(false);
         })
         .catch((e) => {
           setModalNotification({
@@ -49,6 +60,7 @@ export default function SignUp() {
             description: 'O e-mail já foi usado!',
             variant: 'Error',
           });
+          setLoading(false);
           changeStatusSucessModal();
         });
     } else {
@@ -57,6 +69,7 @@ export default function SignUp() {
         description: 'Tem uma idade inferior á 12 anos!',
         variant: 'Warning',
       });
+      setLoading(false);
       changeStatusSucessModal();
     }
   }
@@ -156,6 +169,7 @@ export default function SignUp() {
                 h={[14, 84]}
                 borderRadius="4"
                 fontSize={[16, 20]}
+                isDisabled={loading}
               >
                 Entrar
               </Button>
@@ -169,8 +183,19 @@ export default function SignUp() {
               color="white"
               fontSize={[16, 20]}
               type="submit"
+              isDisabled={loading}
             >
-              Criar conta
+              {!loading ? (
+                <Text> Criar conta</Text>
+              ) : (
+                <Spinner
+                  size={['md', 'lg']}
+                  thickness="4px"
+                  speed="0.65s"
+                  emptyColor="gray.200"
+                  color="blue.500"
+                />
+              )}
             </Button>
           </Flex>
         </Flex>

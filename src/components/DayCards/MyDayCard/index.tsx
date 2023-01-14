@@ -12,17 +12,16 @@ interface DayCardProps {
   data: NoteData;
   index: number;
   deleteNote: (id: string) => void;
+  loading: boolean;
 }
 
-export function MyDayCard({ data, index, deleteNote }: DayCardProps) {
+export function MyDayCard({ data, index, deleteNote, loading }: DayCardProps) {
   const [modalDeleteNote, setModalDeleteNote] = useState(false);
   function changeStatusModal() {
     setModalDeleteNote(!modalDeleteNote);
   }
 
   function modalSubmit(id: string) {
-    setModalDeleteNote(!modalDeleteNote);
-
     deleteNote(id);
   }
 
@@ -34,6 +33,7 @@ export function MyDayCard({ data, index, deleteNote }: DayCardProps) {
         submitModal={modalSubmit}
         idNote={data.note.id}
         day={index}
+        loading={loading}
       />
       <Flex>
         <Flex flex={1} flexDir="column">

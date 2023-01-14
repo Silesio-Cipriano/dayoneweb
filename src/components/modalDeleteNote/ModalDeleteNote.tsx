@@ -7,6 +7,7 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  Spinner,
   Text,
 } from '@chakra-ui/react';
 import { useState } from 'react';
@@ -17,6 +18,7 @@ interface IModalProps {
   submitModal: (id: string) => void;
   idNote: string;
   day: number;
+  loading: boolean;
 }
 
 export function ModalDeleteNote({
@@ -25,6 +27,7 @@ export function ModalDeleteNote({
   submitModal,
   idNote,
   day,
+  loading,
 }: IModalProps) {
   function changeModalState() {
     changeStatusModal();
@@ -66,8 +69,19 @@ export function ModalDeleteNote({
               backgroundColor="red.900"
               _hover={{ backgroundColor: 'red.100', color: 'white' }}
               onClick={() => submitModal(idNote)}
+              isDisabled={loading}
             >
-              Deletar
+              {!loading ? (
+                <Text>Deletar</Text>
+              ) : (
+                <Spinner
+                  size={['md', 'lg']}
+                  thickness="4px"
+                  speed="0.65s"
+                  emptyColor="gray.200"
+                  color="blue.500"
+                />
+              )}
             </Button>
             <Button
               fontSize={['16', '', '20']}
@@ -79,6 +93,7 @@ export function ModalDeleteNote({
               backgroundColor="black.900"
               _hover={{ backgroundColor: 'black.100', color: 'white' }}
               onClick={changeModalState}
+              isDisabled={loading}
             >
               Cancelar
             </Button>

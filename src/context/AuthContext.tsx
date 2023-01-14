@@ -69,7 +69,7 @@ export function AuthProvider({ children }: AuthProviderType) {
         router.push('/mydaynotes');
       }, 3000);
     } else {
-      throw Error('Email ou senha invalida!');
+      throw Error('Email ou senha inválida!');
     }
   }
 

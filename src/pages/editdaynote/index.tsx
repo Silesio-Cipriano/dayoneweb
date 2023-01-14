@@ -11,6 +11,8 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  Spinner,
+  Text,
   Textarea,
 } from '@chakra-ui/react';
 import { Header } from '../../components/Header';
@@ -18,10 +20,11 @@ import { useState } from 'react';
 import { getAPIClient } from '../../services/axios';
 import { GetServerSideProps } from 'next';
 import { useForm } from 'react-hook-form';
-import { CreateNote, NoteData } from '../../utils/types';
+import { CreateNote, ModalNotification, NoteData } from '../../utils/types';
 import { uploadNoteRequest } from '../../services/notes';
 import Router from 'next/router';
 import { parseCookies } from 'nookies';
+import { NotificationStatusModal } from '../../components/NotificationStatusModal/NotificationStatusModal';
 
 interface IEmojiProps {
   id: string;
@@ -46,6 +49,17 @@ export default function EditDayNote({ emojis, note }: any) {
     },
   });
 
+  const [modalNotificationStatus, setModalNotificationStatus] = useState(false);
+  const [modalNotification, setModalNotification] = useState<ModalNotification>(
+    {} as ModalNotification
+  );
+
+  const [loading, setLoading] = useState(false);
+
+  function changeStatusSucessModal() {
+    setModalNotificationStatus(!modalNotificationStatus);
+  }
+
   function modalVisibleStatus() {
     setModalVisible(!modalVisible);
   }
@@ -56,19 +70,36 @@ export default function EditDayNote({ emojis, note }: any) {
   }
 
   async function submitUploadNote(data: CreateNote) {
+    setLoading(true);
     const noteId = noteData.note.id;
     data.reaction_EmojiId = emoji.id;
-    await uploadNoteRequest(data, noteId)
-      .then(() => {
-        Router.push('/mydaynotes');
-      })
-      .catch((e) => {
-        alert('Erro');
-      });
+    setTimeout(async () => {
+      await uploadNoteRequest(data, noteId)
+        .then(() => {
+          Router.push('/mydaynotes');
+        })
+        .catch((e) => {
+          setModalNotification({
+            title: 'Falha',
+            description:
+              'Não foi possivel salvar a nota, esse serviço esta inativo no momento',
+            variant: 'Error',
+          });
+          setLoading(false);
+          changeStatusSucessModal();
+        });
+    }, 1000);
   }
 
   return (
     <>
+      <NotificationStatusModal
+        title={modalNotification.title}
+        description={modalNotification.description}
+        variant={modalNotification.variant}
+        open={modalNotificationStatus}
+        close={changeStatusSucessModal}
+      />
       <Header variant="logged" />
       <Flex
         w="100%"
@@ -98,8 +129,19 @@ export default function EditDayNote({ emojis, note }: any) {
               colorScheme="black.900"
               _hover={{ bg: 'black.900', color: 'white', border: '2px' }}
               fontSize={['xs', 'xl']}
+              isDisabled={loading}
             >
-              Salvar
+              {!loading ? (
+                <Text>Salvar</Text>
+              ) : (
+                <Spinner
+                  size={['md', 'lg']}
+                  thickness="4px"
+                  speed="0.65s"
+                  emptyColor="gray.200"
+                  color="blue.500"
+                />
+              )}
             </Button>
           </Flex>
 

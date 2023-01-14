@@ -4,25 +4,57 @@ import { parseCookies } from 'nookies';
 import { useState } from 'react';
 import { MyDayCard } from '../../components/DayCards/MyDayCard';
 import { Header } from '../../components/Header';
+import { NotificationStatusModal } from '../../components/NotificationStatusModal/NotificationStatusModal';
 import { TitleArea } from '../../components/TitleArea';
 import { getAPIClient } from '../../services/axios';
 import { deleteNoteRequest } from '../../services/notes';
-import { NoteData } from '../../utils/types';
+import { ModalNotification, NoteData } from '../../utils/types';
 
 export default function MyDayNotes({
   notes,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [data, setData] = useState<NoteData[]>([...notes]);
   const dataLength = data.length - 1;
+  const [modalNotificationStatus, setModalNotificationStatus] = useState(false);
+  const [modalNotification, setModalNotification] = useState<ModalNotification>(
+    {} as ModalNotification
+  );
+  const [loading, setLoading] = useState(false);
+
+  function changeStatusSucessModal() {
+    setModalNotificationStatus(!modalNotificationStatus);
+  }
 
   async function deleteNote(id: string) {
-    await deleteNoteRequest(id);
-    const newData = data.filter((data) => data.note.id !== id);
-    setData([...newData]);
+    setLoading(true);
+    setTimeout(async () => {
+      await deleteNoteRequest(id)
+        .then(() => {
+          const newData = data.filter((data) => data.note.id !== id);
+          setData([...newData]);
+          setLoading(false);
+        })
+        .catch((e) => {
+          setModalNotification({
+            title: 'Falha',
+            description: 'Não foi possivel deletar a nota!',
+            variant: 'Error',
+          });
+          setLoading(false);
+          changeStatusSucessModal();
+        });
+    }, 1000);
   }
 
   return (
     <>
+      <NotificationStatusModal
+        title={modalNotification.title}
+        description={modalNotification.description}
+        variant={modalNotification.variant}
+        open={modalNotificationStatus}
+        close={changeStatusSucessModal}
+      />
       <Header variant="logged" />
       <Flex
         w="100%"
@@ -49,6 +81,7 @@ export default function MyDayNotes({
                   data={note}
                   index={dataLength - index + 1}
                   deleteNote={deleteNote}
+                  loading={loading}
                 />
               );
             })

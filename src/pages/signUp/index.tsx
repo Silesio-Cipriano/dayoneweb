@@ -65,7 +65,7 @@ export default function SignUp() {
         });
     } else {
       setModalNotification({
-        title: 'Idade invalida',
+        title: 'Idade inválida',
         description: 'Tem uma idade inferior á 12 anos!',
         variant: 'Warning',
       });

@@ -57,7 +57,7 @@ export default function SignIn({
       .catch((e) => {
         setModalNotification({
           title: 'Falha',
-          description: 'E-mail ou senha invalida!',
+          description: 'E-mail ou senha inválida!',
           variant: 'Error',
         });
         changeStatusSucessModal();

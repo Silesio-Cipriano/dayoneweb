@@ -20,7 +20,12 @@ export async function newNoteRequest({
 }
 
 export async function deleteNoteRequest(id: string) {
-  await api.delete(`/note/${id}`);
+  await api
+    .delete(`/note/${id}`)
+    .then(() => {})
+    .catch((e) => {
+      throw new Error('Falha no servidor, não  foi possivel deletar a nota');
+    });
 }
 
 export async function uploadNoteRequest(

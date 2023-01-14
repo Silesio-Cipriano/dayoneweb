@@ -11,6 +11,8 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  Spinner,
+  Text,
   Textarea,
 } from '@chakra-ui/react';
 import { Header } from '../../components/Header';
@@ -44,6 +46,8 @@ export default function CreateDayNote({
     {} as ModalNotification
   );
 
+  const [loading, setLoading] = useState(false);
+
   function changeStatusSucessModal() {
     setModalNotificationStatus(!modalNotificationStatus);
   }
@@ -60,25 +64,28 @@ export default function CreateDayNote({
   }
 
   async function submitNewNote(data: CreateNote) {
+    setLoading(true);
     data.reaction_EmojiId = emoji.id;
-    await newNoteRequest(data)
-      .then(() => {
-        Router.push('/mydaynotes');
-      })
-      .catch((e) => {
-        setModalNotification({
-          title: 'Falha',
-          description:
-            'Não foi possivel salvar a nota, esse serviço esta inativo no momento',
-          variant: 'Error',
+    setTimeout(async () => {
+      await newNoteRequest(data)
+        .then(() => {
+          Router.push('/mydaynotes');
+        })
+        .catch((e) => {
+          setModalNotification({
+            title: 'Falha',
+            description:
+              'Não foi possivel salvar a nota, esse serviço esta inativo no momento',
+            variant: 'Error',
+          });
+          setLoading(false);
+          changeStatusSucessModal();
         });
-        changeStatusSucessModal();
-      });
+    }, 1000);
   }
 
   return (
     <>
-      <Header variant="logged" />
       <NotificationStatusModal
         title={modalNotification.title}
         description={modalNotification.description}
@@ -86,6 +93,7 @@ export default function CreateDayNote({
         open={modalNotificationStatus}
         close={changeStatusSucessModal}
       />
+      <Header variant="logged" />
       <Flex
         w="100%"
         maxWidth={1360}
@@ -114,8 +122,19 @@ export default function CreateDayNote({
               colorScheme="black.900"
               _hover={{ bg: 'black.900', color: 'white', border: '2px' }}
               fontSize={['xs', 'xl']}
+              isDisabled={loading}
             >
-              Salvar
+              {!loading ? (
+                <Text>Salvar</Text>
+              ) : (
+                <Spinner
+                  size={['md', 'lg']}
+                  thickness="4px"
+                  speed="0.65s"
+                  emptyColor="gray.200"
+                  color="blue.500"
+                />
+              )}
             </Button>
           </Flex>
 

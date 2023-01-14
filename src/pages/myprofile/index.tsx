@@ -6,6 +6,7 @@ import {
   Icon,
   Image,
   Input,
+  Spinner,
   Text,
 } from '@chakra-ui/react';
 import { Upload } from 'react-feather';
@@ -36,6 +37,8 @@ export default function MyProfile() {
     {} as ModalNotification
   );
 
+  const [loading, setLoading] = useState(false);
+
   function changeStatusSucessModal() {
     setModalNotificationStatus(!modalNotificationStatus);
   }
@@ -60,10 +63,9 @@ export default function MyProfile() {
   const router = useRouter();
 
   async function uploadUser() {
+    setLoading(true);
     const data = file;
     formData.append('avatar', data);
-
-    console.log('Birthday');
 
     const age = new Date().getFullYear() - new Date(birthday).getFullYear();
 
@@ -108,10 +110,11 @@ export default function MyProfile() {
         });
     } else {
       setModalNotification({
-        title: 'Idade invalida',
+        title: 'Idade inválida',
         description: 'Tem uma idade inferior á 12 anos!',
         variant: 'Warning',
       });
+      setLoading(false);
       changeStatusSucessModal();
     }
   }
@@ -265,8 +268,19 @@ export default function MyProfile() {
             color="white"
             fontSize={[16, 20]}
             type="submit"
+            isDisabled={loading}
           >
-            Salvar alterações
+            {!loading ? (
+              <Text>Salvar alterações</Text>
+            ) : (
+              <Spinner
+                size={['md', 'lg']}
+                thickness="4px"
+                speed="0.65s"
+                emptyColor="gray.200"
+                color="blue.500"
+              />
+            )}
           </Button>
           {/* <ChakraUILink as={Link} href="" color="red.900">
             Esqueci a minha senha

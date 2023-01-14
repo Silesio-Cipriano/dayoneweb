@@ -27,23 +27,23 @@ export default function MyDayNotes({
 
   async function deleteNote(id: string) {
     setLoading(true);
-    setTimeout(async () => {
-      await deleteNoteRequest(id)
-        .then(() => {
-          const newData = data.filter((data) => data.note.id !== id);
-          setData([...newData]);
+    await deleteNoteRequest(id)
+      .then(() => {
+        const newData = data.filter((data) => data.note.id !== id);
+        setData([...newData]);
+        setTimeout(() => {
           setLoading(false);
-        })
-        .catch((e) => {
-          setModalNotification({
-            title: 'Falha',
-            description: 'Não foi possivel deletar a nota!',
-            variant: 'Error',
-          });
-          setLoading(false);
-          changeStatusSucessModal();
+        }, 1500);
+      })
+      .catch((e) => {
+        setModalNotification({
+          title: 'Falha',
+          description: 'Não foi possivel deletar a nota!',
+          variant: 'Error',
         });
-    }, 2000);
+        setLoading(false);
+        changeStatusSucessModal();
+      });
   }
 
   return (

@@ -43,7 +43,7 @@ export default function MyDayNotes({
           setLoading(false);
           changeStatusSucessModal();
         });
-    }, 1000);
+    }, 3000);
   }
 
   return (

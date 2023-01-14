@@ -142,20 +142,19 @@ export function Header({ variant = 'normal' }: HeaderProps) {
 
   return (
     <Flex
-      as="header"
       w="100%"
       maxWidth={1360}
       h="20"
       px="4"
-      mx="auto"
       mt="10"
+      mx="auto"
       justify="space-between"
       align="center"
     >
       <ChakraUILink
         as={Link}
         href=""
-        fontSize={['2xl', '3xl']}
+        fontSize={['xm', '3xl']}
         fontWeight="bold"
         fontFamily="Lato"
         _hover={{ textDecoration: 'none' }}
@@ -167,7 +166,7 @@ export function Header({ variant = 'normal' }: HeaderProps) {
         <ChakraUILink
           as={Link}
           href="/signIn"
-          fontSize={['xl', '2xl']}
+          fontSize={['xm', '2xl']}
           fontWeight="bold"
           fontFamily="Lato"
           _hover={{ textDecoration: 'none' }}
@@ -178,7 +177,7 @@ export function Header({ variant = 'normal' }: HeaderProps) {
         <ChakraUILink
           as={Link}
           href="/signUp"
-          fontSize={['xl', '2xl']}
+          fontSize={['xm', '2xl']}
           fontWeight="bold"
           fontFamily="Lato"
           _hover={{ textDecoration: 'none', color: 'red.100' }}

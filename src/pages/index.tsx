@@ -16,40 +16,61 @@ import { parseCookies } from 'nookies';
 export default function Home() {
   return (
     <>
-      <Header variant="normal" />
-      <Box
-        backgroundImage={'./images/Background.svg'}
-        backgroundPosition="center"
-        backgroundRepeat="no-repeat"
-        w="100vw"
-        h="85vh"
-      >
+      <Flex flexDir="column" w="100vw" pb={['100', '', '', '200']}>
+        <Header variant="normal" />
+        <Box
+          backgroundImage={'./images/Background.svg'}
+          backgroundPosition="center"
+          backgroundRepeat="no-repeat"
+          w={['100vw', '10vw', '97vw']}
+          h={['90vh', '80vh']}
+          pos={'fixed'}
+          top="100"
+          bottom="100"
+        ></Box>
+
         <Flex
-          w="100%"
-          maxWidth={1360}
-          mx="auto"
-          h="80%"
+          mx={['auto']}
+          w={'100%'}
+          h="100%"
           flexDir="column"
           px="4"
+          maxWidth={1300}
+          mt={['100', '200']}
           align="center"
           alignItems="center"
           alignContent="center"
           textAlign="center"
           justify="center"
         >
-          <Text fontFamily="Lato" fontSize="4xl" fontWeight="bold" w="550px">
-            A maneira mais simples e criativa{'\n'}de fazer anotações diarias
+          <Text
+            fontFamily="Lato"
+            fontSize={['xm', '4xl']}
+            mt="20px"
+            mx={['12']}
+            px={['0', '', '0']}
+            fontWeight="bold"
+          >
+            Transforme seus pensamentos em palavras
           </Text>
-          <Text fontSize="2xl" fontWeight="medium" w="650px" mt="20px">
-            "Para manter suas ideias organizadas e suas anotações diárias mais
-            dinâmicas, experimente o day one."
+          <Text
+            fontSize={['xs', '2xl']}
+            fontWeight="medium"
+            textAlign="center"
+            mt="20px"
+            mx={['0', '', '12']}
+            px={['0', '', '0']}
+          >
+            "desenvolvido para ajudá-lo a organizar seus pensamentos e
+            sentimentos. Com ele, você pode registrar suas reflexões, metas e
+            realizações de forma fácil e intuitiva, experimente o day one."
           </Text>
 
           <ChakraUILink
             as={Link}
             href="/"
             fontFamily="Lato"
-            fontSize="3xl"
+            fontSize={['xl', '3xl']}
             fontWeight="bold"
             mt="20px"
             _hover={{ textDecoration: 'none', borderColor: 'blue.400' }}
@@ -59,7 +80,7 @@ export default function Home() {
             Entrar
           </ChakraUILink>
         </Flex>
-      </Box>
+      </Flex>
     </>
   );
 }

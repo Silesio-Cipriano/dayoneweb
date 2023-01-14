@@ -98,7 +98,7 @@ export default function SignIn({
           as="form"
           onSubmit={handleSubmit(signInSubmit)}
         >
-          <Heading fontSize={48} pb="15" pt="10">
+          <Heading fontSize={[24, 48]} pb="15" pt="10">
             ENTRAR
           </Heading>
           {/* <ChakraLink mt="10" w="100%" _hover={{ textDecoration: 'none' }}>

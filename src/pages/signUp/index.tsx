@@ -78,7 +78,7 @@ export default function SignUp() {
           as="form"
           onSubmit={handleSubmit(signUpSubmit)}
         >
-          <Heading fontSize={48} pb="15" pt="20">
+          <Heading fontSize={[24, 48]} pb="15" pt="20">
             CRIAR CONTA
           </Heading>
           {/* <ChakraLink mt="10" w="100%" _hover={{ textDecoration: 'none' }}>

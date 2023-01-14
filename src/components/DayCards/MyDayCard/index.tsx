@@ -23,9 +23,7 @@ export function MyDayCard({ data, index, deleteNote, loading }: DayCardProps) {
 
   async function modalSubmit(id: string) {
     await deleteNote(id).then(() => {
-      setTimeout(() => {
-        changeStatusModal();
-      }, 2000);
+      changeStatusModal();
     });
   }
 

@@ -29,9 +29,9 @@ export default function MyDayNotes({
     setLoading(true);
     await deleteNoteRequest(id)
       .then(() => {
+        setLoading(false);
         const newData = data.filter((data) => data.note.id !== id);
         setData([...newData]);
-        setLoading(false);
       })
       .catch((e) => {
         setModalNotification({

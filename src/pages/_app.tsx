@@ -19,7 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
             fontFamily="Lato"
             fontWeight="medium"
           >
-            © {new Date().getFullYear()} Day One
+            © {new Date().getFullYear()} Day One - Silésio Cipriano
           </Text>
         </Center>
       </AuthProvider>

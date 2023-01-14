@@ -29,24 +29,36 @@ export default function SignUp() {
   }
 
   async function signUpSubmit(data: ISignUp) {
-    await signUpRequest(data)
-      .then(() => {
-        setModalNotification({
-          title: 'Sucesso',
-          description:
-            'Verifique a sua caixa no email, para validar a conta na Day One!',
-          variant: 'Sucess',
+    const age =
+      new Date().getFullYear() - new Date(data.birthday).getFullYear();
+
+    if (age >= 12) {
+      await signUpRequest(data)
+        .then(() => {
+          setModalNotification({
+            title: 'Sucesso',
+            description:
+              'Verifique a sua caixa no email, para validar a conta na Day One!',
+            variant: 'Sucess',
+          });
+          changeStatusSucessModal();
+        })
+        .catch((e) => {
+          setModalNotification({
+            title: 'Falha',
+            description: 'O e-mail já foi usado!',
+            variant: 'Error',
+          });
+          changeStatusSucessModal();
         });
-        changeStatusSucessModal();
-      })
-      .catch((e) => {
-        setModalNotification({
-          title: 'Falha',
-          description: 'O e-mail já foi usado!',
-          variant: 'Error',
-        });
-        changeStatusSucessModal();
+    } else {
+      setModalNotification({
+        title: 'Idade invalida',
+        description: 'Tem uma idade inferior á 12 anos!',
+        variant: 'Warning',
       });
+      changeStatusSucessModal();
+    }
   }
 
   return (
@@ -60,7 +72,7 @@ export default function SignUp() {
       />
       <Flex
         w="100%"
-        h="90vh"
+        h={['70vh', '80vh']}
         maxWidth={[428, 580]}
         m="auto"
         flexDir="column"

@@ -6,6 +6,7 @@ import {
   Heading,
   Image,
   Link as ChakraLink,
+  Spinner,
   Text,
 } from '@chakra-ui/react';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
@@ -34,6 +35,7 @@ export default function SignIn({
     {} as ModalNotification
   );
   const [state, setState] = useState(active);
+  const [loading, setLoading] = useState(false);
   const { register, handleSubmit } = useForm<ISignInData>();
 
   function changeStatusSucessModal() {
@@ -42,6 +44,7 @@ export default function SignIn({
   const { signIn } = useContext(AuthContext);
 
   async function signInSubmit(data: ISignInData) {
+    setLoading(true);
     await signIn(data)
       .then(() => {
         setModalNotification({
@@ -58,6 +61,7 @@ export default function SignIn({
           variant: 'Error',
         });
         changeStatusSucessModal();
+        setLoading(false);
       });
   }
 
@@ -83,7 +87,7 @@ export default function SignIn({
       />
       <Flex
         w="100vw"
-        h="100vh"
+        h={['70vh', '80vh']}
         flexDir="column"
         align="center"
         justify="center"
@@ -147,8 +151,19 @@ export default function SignIn({
                 color="white"
                 fontSize={[16, 20]}
                 type="submit"
+                isDisabled={loading}
               >
-                Entrar
+                {!loading ? (
+                  <Text>Entrar</Text>
+                ) : (
+                  <Spinner
+                    size={['md', 'lg']}
+                    thickness="4px"
+                    speed="0.65s"
+                    emptyColor="gray.200"
+                    color="blue.500"
+                  />
+                )}
               </Button>
 
               <ChakraLink
@@ -162,6 +177,7 @@ export default function SignIn({
                   h={[14, 84]}
                   borderRadius="4"
                   fontSize={[16, 20]}
+                  isDisabled={loading}
                 >
                   Criar conta
                 </Button>

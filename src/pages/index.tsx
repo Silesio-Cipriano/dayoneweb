@@ -63,7 +63,7 @@ export default function Home() {
             mx={['0', '', '12']}
             px={['0', '', '0']}
           >
-            "desenvolvido para ajudá-lo a organizar seus pensamentos e
+            "Desenvolvido para ajudá-lo a organizar seus pensamentos e
             sentimentos. Com ele, você pode registrar suas reflexões, metas e
             realizações de forma fácil e intuitiva, experimente o day one."
           </Text>

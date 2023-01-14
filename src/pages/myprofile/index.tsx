@@ -63,39 +63,57 @@ export default function MyProfile() {
     const data = file;
     formData.append('avatar', data);
 
-    await api
-      .put('/user/', {
-        name,
-        birthday,
-      })
-      .then(async (response) => {
-        if (data) {
-          await api
-            .patch('/user/avatar', formData, {
-              headers: { 'content-type': 'multipart/form-data' },
-            })
-            .then((response) => {
-              setModalNotification({
-                title: 'Sucesso',
-                description: 'O seu perfil foi atualizado!',
-                variant: 'Sucess',
+    console.log('Birthday');
+
+    const age = new Date().getFullYear() - new Date(birthday).getFullYear();
+
+    if (age >= 12) {
+      await api
+        .put('/user/', {
+          name,
+          birthday,
+        })
+        .then(async (response) => {
+          if (data) {
+            await api
+              .patch('/user/avatar', formData, {
+                headers: { 'content-type': 'multipart/form-data' },
+              })
+              .then((response) => {
+                setModalNotification({
+                  title: 'Sucesso',
+                  description: 'O seu perfil foi atualizado!',
+                  variant: 'Sucess',
+                });
+                changeStatusSucessModal();
+              })
+              .catch((e) => {
+                setModalNotification({
+                  title: 'Falha',
+                  description:
+                    'Não foi possivel salvar a imagem, tente de novo ou tente outra imagem!',
+                  variant: 'Error',
+                });
+                changeStatusSucessModal();
               });
-              changeStatusSucessModal();
-            })
-            .catch((e) => {
-              setModalNotification({
-                title: 'Falha',
-                description:
-                  'Não foi possivel salvar a imagem, tente de novo ou tente outra imagem!',
-                variant: 'Error',
-              });
-              changeStatusSucessModal();
+          } else {
+            setModalNotification({
+              title: 'Sucesso',
+              description: 'O seu perfil foi atualizado!',
+              variant: 'Sucess',
             });
-        } else {
-          changeStatusSucessModal();
-        }
-        setTimeout(router.reload, 5000);
+            changeStatusSucessModal();
+          }
+          setTimeout(router.reload, 5000);
+        });
+    } else {
+      setModalNotification({
+        title: 'Idade invalida',
+        description: 'Tem uma idade inferior á 12 anos!',
+        variant: 'Warning',
       });
+      changeStatusSucessModal();
+    }
   }
   useEffect(() => {
     setName(user?.name + '');

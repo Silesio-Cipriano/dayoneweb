@@ -142,6 +142,7 @@ export default function SignUp() {
             name="birthday"
             id="dataNascimento"
             type="date"
+            isRequired
             w={[270, 456]}
             placeholder="Digite a sua senha"
             _placeholder={{ fontSize: 16 }}

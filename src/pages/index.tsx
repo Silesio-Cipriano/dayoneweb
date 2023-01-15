@@ -70,7 +70,7 @@ export default function Home() {
 
           <ChakraUILink
             as={Link}
-            href="/"
+            href="/signIn"
             fontFamily="Lato"
             fontSize={['xl', '3xl']}
             fontWeight="bold"

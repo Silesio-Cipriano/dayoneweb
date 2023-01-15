@@ -211,6 +211,7 @@ export default function MyProfile() {
             placeholder="Digite o seu nome"
             w={[270, 456]}
             value={name}
+            isRequired
             onChange={(e) => setName(e.target.value)}
             _placeholder={{ fontSize: 16 }}
           />
@@ -230,6 +231,7 @@ export default function MyProfile() {
             name="birthday"
             id="dataNascimento"
             type="date"
+            isRequired
             value={birthday}
             onChange={(e) => setBirthDay(e.target.value)}
             w={[270, 456]}

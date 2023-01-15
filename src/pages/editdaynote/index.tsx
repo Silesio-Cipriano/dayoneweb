@@ -152,6 +152,7 @@ export default function EditDayNote({ emojis, note }: any) {
             fontSize={[16, 20]}
             placeholder="Frase do dia"
             variant="filled"
+            spellCheck={false}
             resize="none"
             required
             bg="blue.400"
@@ -169,6 +170,7 @@ export default function EditDayNote({ emojis, note }: any) {
               fontSize={[14, 20]}
               placeholder="Autor da frase"
               variant="filled"
+              spellCheck={false}
               required
               h={16}
               bg="blue.400"
@@ -190,6 +192,7 @@ export default function EditDayNote({ emojis, note }: any) {
             placeholder="Escrever"
             variant="filled"
             resize="none"
+            spellCheck={false}
             h={[245, 328]}
             bg="blue.400"
           />

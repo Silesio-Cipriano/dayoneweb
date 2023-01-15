@@ -145,6 +145,7 @@ export default function CreateDayNote({
             fontSize={[16, 20]}
             placeholder="Frase do dia"
             variant="filled"
+            spellCheck={false}
             resize="none"
             required
             bg="blue.400"
@@ -160,6 +161,7 @@ export default function CreateDayNote({
               {...register('authorOfTitle')}
               name="authorOfTitle"
               fontSize={[14, 20]}
+              spellCheck={false}
               placeholder="Autor da frase"
               variant="filled"
               required
@@ -182,6 +184,7 @@ export default function CreateDayNote({
             required
             placeholder="Escrever"
             variant="filled"
+            spellCheck={false}
             resize="none"
             h={[245, 328]}
             bg="blue.400"

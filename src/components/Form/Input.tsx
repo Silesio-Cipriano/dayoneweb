@@ -27,6 +27,7 @@ export const InputForm = React.forwardRef(
         <Input
           {...rest}
           ref={ref}
+          spellCheck={false}
           name={name}
           id={name}
           variant="unstyled"

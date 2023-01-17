@@ -6,14 +6,9 @@ import {
   Button,
   Box,
 } from '@chakra-ui/react';
-import { GetServerSideProps } from 'next';
 import Link from 'next/link';
-import Router, { useRouter } from 'next/router';
-import { parseCookies } from 'nookies';
 
 export default function Error404() {
-  const router = useRouter();
-
   return (
     <>
       <Box

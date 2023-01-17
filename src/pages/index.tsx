@@ -1,13 +1,5 @@
-import {
-  Box,
-  Button,
-  Center,
-  Flex,
-  Text,
-  Link as ChakraUILink,
-} from '@chakra-ui/react';
+import { Box, Flex, Text, Link as ChakraUILink } from '@chakra-ui/react';
 import { Header } from '../components/Header';
-import Emoji from '../../assets/EmojiVendeta.svg';
 import Link from 'next/link';
 import { GetServerSideProps } from 'next';
 import { getAPIClient } from '../services/axios';

@@ -9,11 +9,10 @@ import {
 import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 import { parseCookies } from 'nookies';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { InputForm } from '../../components/Form/Input';
 import { NotificationStatusModal } from '../../components/NotificationStatusModal/NotificationStatusModal';
-import { AuthContext } from '../../context/AuthContext';
 import { signUpRequest } from '../../services/signUp';
 import { ModalNotification } from '../../utils/types';
 

@@ -1,10 +1,8 @@
 import {
   Button,
   Center,
-  Divider,
   Flex,
   Heading,
-  Image,
   Link as ChakraLink,
   Spinner,
   Text,
@@ -13,9 +11,7 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Link from 'next/link';
 import { parseCookies } from 'nookies';
 import { useContext, useEffect, useState } from 'react';
-import { Divide } from 'react-feather';
 import { useForm } from 'react-hook-form';
-import LogoGmail from '../../assets/logoGmail.svg';
 import { InputForm } from '../../components/Form/Input';
 import { NotificationStatusModal } from '../../components/NotificationStatusModal/NotificationStatusModal';
 import { AuthContext } from '../../context/AuthContext';

@@ -56,6 +56,7 @@ export default function SignIn({
           description: 'E-mail ou senha inválida!',
           variant: 'Error',
         });
+        console.log('Error:', e);
         changeStatusSucessModal();
         setLoading(false);
       });

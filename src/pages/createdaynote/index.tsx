@@ -110,7 +110,7 @@ export default function CreateDayNote({
           flexDir="column"
           gap={['4', '6']}
         >
-          <Flex justify="space-between" align="center" mt="20">
+          <Flex justify="space-between" align="center" mt={[6, 20]}>
             <Heading>Nova</Heading>
             <Button
               w={[124, 255]}

@@ -117,7 +117,7 @@ export default function EditDayNote({ emojis, note }: any) {
           flexDir="column"
           gap={['4', '6']}
         >
-          <Flex justify="space-between" align="center" mt="20">
+          <Flex justify="space-between" align="center" mt={[6, 20]}>
             <Heading>Editar</Heading>
             <Button
               w={[124, 255]}
